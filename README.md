@@ -30,7 +30,7 @@
  ---
  > #### **로비 -> 게임 플레이 -> 종료 OR 로비로 이동**
 
-### **4.게임 화면 스크린샷**
+### **4.시중 판매중인 게임 화면 스크린샷**
 ---
 > ### **게임 로비화면**
 > <img width="1277" alt="로비화면" src="https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/e0753071-f335-4152-842d-fbd059d52eba">

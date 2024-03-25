@@ -39,7 +39,7 @@
 >
 ><img width="1038" alt="플레이화면" src="https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/807146de-6c50-498c-8cb2-a4008f7b62eb">
 >
-> ### **게임 타격 화면 **
+> ### **게임 타격 화면**
 > 
 ><img width="1279" alt="타격화면" src="https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/f2d6a60a-c205-4571-aae6-a618f6dc77e3">
 >

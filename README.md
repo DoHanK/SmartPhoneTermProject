@@ -1,5 +1,4 @@
-<img width="1279" alt="타격화면" src="https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/4a437f6f-adab-49c6-9828-9e8e15b55f74"># SmartPhoneTermProject
- Make With Android Studio
+Make With Android Studio
 
    ### **1.게임 컨셉**
  ---

@@ -45,5 +45,5 @@
 >
 > ### **게임 오버화면**
 >
-><img width="798" alt="게임오버화면" src="https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/8f1a0c98-3c22-476f-8d26-307448807918">
+><img width="1279" alt="게임오버화면" src="https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/204c7d91-a74f-4d6a-a3d4-0ba1d58e1f49">
 >

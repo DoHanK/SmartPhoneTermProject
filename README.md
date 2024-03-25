@@ -34,7 +34,12 @@
 ---
 > ### **게임 로비화면**
 > <img width="1277" alt="로비화면" src="https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/e0753071-f335-4152-842d-fbd059d52eba">
+>
 > ### **게임 플레화면**
+>
 ><img width="1038" alt="플레이화면" src="https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/807146de-6c50-498c-8cb2-a4008f7b62eb">
+>
 > ### **게임 오버화면**
+>
 <img width="798" alt="게임오버화면" src="https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/8f1a0c98-3c22-476f-8d26-307448807918">
+>

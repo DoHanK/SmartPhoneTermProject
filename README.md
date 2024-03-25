@@ -46,3 +46,17 @@ Make With Android Studio
 >
 ><img width="1279" alt="게임오버화면" src="https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/204c7d91-a74f-4d6a-a3d4-0ba1d58e1f49">
 >
+
+### **5.  개발 일정**
+---
+주차 | 개발 일정|
+:---|:---:|---:
+1주차| 프레임워크 설계
+2주차| 프레임워크 제작
+3주차| UI 제작
+4주차| 게임 로직 설계
+5주차| 게임 로직 제작
+6주차| 디버깅
+7주차| 게임 컨텐츠 제작
+8주차| 디버깅
+9주자| 게임 최종 검수

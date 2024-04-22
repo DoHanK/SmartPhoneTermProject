@@ -1,4 +1,5 @@
 package com.example.inversus.framework.activity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -18,6 +19,7 @@ public class GameActivity extends AppCompatActivity {
         gameView = new GameView(this);
         //gameView.setFullScreen();
         setContentView(gameView);
+
         //new MainScene().push();
 
         getOnBackPressedDispatcher().addCallback(onBackPressedCallback);

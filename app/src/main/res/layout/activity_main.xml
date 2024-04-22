@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id= "@+id/main"
-    android:screenOrientation="landscape"
-    android:layout_width= "match_parent"
-    android:layout_height= "match_parent"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/title_bg"
     android:orientation="vertical"
+    android:screenOrientation="landscape"
     tools:context=".app.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10sp"
-        android:layout_marginTop="180sp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
         android:text="InVersus"
         android:textColor="#000"
         android:textSize="90sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:text="PlayButton"
+        android:textColor="#000"
+        android:textSize="35sp" />
 
     <ImageButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:background="@android:color/transparent"
-        android:src="@mipmap/playbutton"
+        android:layout_gravity="center"
         android:onClick="onButtonstart"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="120sp"
-        android:text="PlayButton"
-        android:textSize="35sp"
-        android:textColor="#000"
-        />
+        android:src="@mipmap/playbutton" />
+
 
 </LinearLayout>

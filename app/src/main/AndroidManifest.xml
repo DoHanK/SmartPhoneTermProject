@@ -13,10 +13,11 @@
         android:theme="@style/Theme.Inversus"
         tools:targetApi="31">
         <activity android:name=".app.InversusActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:exported="false" />
         <activity
             android:name=".app.MainActivity"
+            android:screenOrientation="landscape"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

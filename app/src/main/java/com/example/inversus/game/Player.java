@@ -9,21 +9,30 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 
 import com.example.inversus.framework.interfaces.IGameObject;
+import com.example.inversus.framework.objects.JoyStick;
 import com.example.inversus.framework.view.Metrics;
 
 public class Player implements IGameObject {
+
+    private static final float SPEED = 8.0f;
 
     private static final float PLAYERSIZE = 0.5f;
     private static final int BULLETCOUNT = 5;
     private static final float BULLETOFFSET = 0.3f;
     private static final float BULLETSIZE = 0.1f;
-    float x ,  y ;
+
+    private final JoyStick joyStick;
+    float x ,  y ,dx, dy;
+    private float angle;
     RectF DrawRect;
     Paint PlayerBodyColor;
     Paint BulletColor;
     float[] bulletPosX = new float[5];
     float[] bulletPosY = new float[5];
-    Player(){
+    Player(JoyStick joyStick){
+
+        this.joyStick = joyStick;
+
         PlayerBodyColor = new Paint();
      PlayerBodyColor.setColor(Color.BLACK);
         BulletColor = new Paint();
@@ -42,6 +51,24 @@ public class Player implements IGameObject {
 
     }
     public void update(float elapsedSeconds){
+
+        if (joyStick.power > 0) {
+            float distance = SPEED * joyStick.power;
+            dx = (float) (distance * Math.cos(joyStick.angle_radian));
+            dy = (float) (distance * Math.sin(joyStick.angle_radian));
+            angle = (float) Math.toDegrees(joyStick.angle_radian);
+
+            float timedDx = dx * elapsedSeconds;
+            float timedDy = dy * elapsedSeconds;
+            x += timedDx;
+            y += timedDy;
+
+        } else {
+            dx = dy = 0;
+        }
+
+
+
         UpdateRect();
         RotateBullet(elapsedSeconds);
     }
@@ -80,4 +107,7 @@ public class Player implements IGameObject {
 
     }
 
+    public void ShootBullet(){
+
+    }
 }

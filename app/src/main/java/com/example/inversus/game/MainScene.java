@@ -6,10 +6,11 @@ import com.example.inversus.R;
 import com.example.inversus.framework.objects.VertScrollBackground;
 import com.example.inversus.framework.objects.Score;
 import com.example.inversus.framework.scene.Scene;
+import com.example.inversus.game.Player;
 
 public class MainScene extends Scene {
     private static final String TAG = MainScene.class.getSimpleName();
-    private final Fighter fighter;
+    private final Player player;
     Score score; // package private
 
     public enum Layer {
@@ -24,8 +25,8 @@ public class MainScene extends Scene {
         add(Layer.bg, new VertScrollBackground(R.mipmap.bg_city, 0.2f));
         add(Layer.bg, new VertScrollBackground(R.mipmap.clouds, 0.4f));
 
-        this.fighter = new Fighter();
-        add(Layer.player, fighter);
+         this.player = new Player();
+        add(Layer.player,  this.player);
 
         this.score = new Score(R.mipmap.number_24x32, 8.5f, 0.5f, 0.6f);
         score.setScore(0);
@@ -43,6 +44,7 @@ public class MainScene extends Scene {
 
     @Override
     public boolean onTouch(MotionEvent event) {
-        return fighter.onTouch(event);
+        //return player.onTouch(event);
+        return false;
     }
 }

@@ -60,4 +60,7 @@ public class Metrics {
     public static void concat(Canvas canvas) {
         canvas.concat(transformMatrix);
     }
+
+    public static float GetHeight(){ return height;}
+    public static float GetWidth(){return width;}
 }

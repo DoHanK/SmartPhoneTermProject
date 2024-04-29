@@ -27,8 +27,9 @@ public class Player implements IGameObject {
     RectF DrawRect;
     Paint PlayerBodyColor;
     Paint BulletColor;
-    float[] bulletPosX = new float[5];
-    float[] bulletPosY = new float[5];
+    float[] bulletPosX = new float[BULLETCOUNT];
+    float[] bulletPosY = new float[BULLETCOUNT];
+    RectF[] drawRBullet = new RectF[BULLETCOUNT];
     Player(JoyStick joyStick){
 
         this.joyStick = joyStick;
@@ -46,7 +47,7 @@ public class Player implements IGameObject {
 
          bulletPosX[i] = BULLETOFFSET * (float)(Math.cos(toRadians(360.f/BULLETCOUNT)*i));
          bulletPosY[i] = BULLETOFFSET * (float)(Math.sin(toRadians(360.f/BULLETCOUNT)*i));
-
+         drawRBullet[i] = new RectF();
      }
 
     }
@@ -79,14 +80,19 @@ public class Player implements IGameObject {
             float Y = bulletPosY[i];
             bulletPosX[i] =  X * (float)Math.cos(elapsedSeconds) - Y * (float)Math.sin(elapsedSeconds);
             bulletPosY[i] = X * (float)Math.sin(elapsedSeconds) + Y * (float)Math.cos(elapsedSeconds);
+
+            drawRBullet[i].left  = bulletPosX[i]- BULLETSIZE +x-Camera.Camera_x;
+            drawRBullet[i].top  = bulletPosY[i]+ BULLETSIZE+y-Camera.Camera_y;
+            drawRBullet[i].right  = bulletPosX[i]+ BULLETSIZE+x -Camera.Camera_x;
+            drawRBullet[i].bottom = bulletPosY[i]- BULLETSIZE+y -Camera.Camera_y;
         }
     }
     public void UpdateRect(){
 
-        DrawRect.top = y + PLAYERSIZE;
-        DrawRect.bottom =  y- PLAYERSIZE;
-        DrawRect.left = x - PLAYERSIZE;
-        DrawRect.right = x + PLAYERSIZE;
+        DrawRect.top = y + PLAYERSIZE -Camera.Camera_y;
+        DrawRect.bottom =  y- PLAYERSIZE - Camera.Camera_y;
+        DrawRect.left = x - PLAYERSIZE -Camera.Camera_x;
+        DrawRect.right = x + PLAYERSIZE -Camera.Camera_x;
 
 
     }
@@ -96,12 +102,7 @@ public class Player implements IGameObject {
 
         for(int i = 0 ; i < BULLETCOUNT ;++i){
 
-           RectF drawR = new RectF(  bulletPosX[i]- BULLETSIZE +x,
-                   bulletPosY[i]+ BULLETSIZE+y,
-                   bulletPosX[i]+ BULLETSIZE+x,
-                   bulletPosY[i]- BULLETSIZE +y);
-
-           canvas.drawOval(drawR,BulletColor);
+          canvas.drawOval(drawRBullet[i],BulletColor);
 
         }
 

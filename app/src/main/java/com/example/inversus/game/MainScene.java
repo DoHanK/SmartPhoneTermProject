@@ -10,11 +10,14 @@ import com.example.inversus.framework.objects.VertScrollBackground;
 import com.example.inversus.framework.objects.Score;
 import com.example.inversus.framework.scene.Scene;
 import com.example.inversus.framework.view.Metrics;
+import com.example.inversus.game.Camera;
 import com.example.inversus.game.Player;
 
 public class MainScene extends Scene {
     private static final String TAG = MainScene.class.getSimpleName();
     private final Player player;
+
+    private  final Camera camera;
 
     Button AttackBtn = new Button(R.mipmap.aim, 14.0f, 7.0f, 2.0f, 2.0f,null);
     Score score; // package private
@@ -25,16 +28,32 @@ public class MainScene extends Scene {
     public MainScene() {
         initLayers(Layer.COUNT);
 
+
+
+        //인터페이스 영역//
         //컨트롤
         this.joyStick = new JoyStick(R.mipmap.joystick_bg, R.mipmap.joystick_thumb);
         joyStick.setRects(1.5f, 1.5f, 1.0f, 0.5f, 1.0f);
         add(Layer.controller, joyStick);
 
+
         this.player = new Player(joyStick);
         add(Layer.player,  this.player);
 
+
+        this.camera = new Camera(this.player);
+        add(Layer.controller,camera);
+
+
+
+        //게임 로직 관련 추가
         add(Layer.controller, new EnemyGenerator());
         add(Layer.controller, new CollisionChecker(this));
+        ///////////////////////////////
+
+
+
+
 
 
 

@@ -16,10 +16,10 @@ public class Player implements IGameObject {
 
     private static final float SPEED = 8.0f;
 
-    private static final float PLAYERSIZE = 0.5f;
+    private static final float PLAYERSIZE = 0.8f;
     private static final int BULLETCOUNT = 5;
-    private static final float BULLETOFFSET = 0.3f;
-    private static final float BULLETSIZE = 0.1f;
+    private static final float BULLETOFFSET = 0.42f;
+    private static final float BULLETSIZE = 0.15f;
 
     private final JoyStick joyStick;
     float x ,  y ,dx, dy;
@@ -39,8 +39,8 @@ public class Player implements IGameObject {
         BulletColor.setColor(Color.RED);
 
      DrawRect = new RectF();
-     x  = 2 ;
-     y = 0;
+     x  = 9 ;
+     y = 4.5f;
 
      for(int i = 0 ; i < BULLETCOUNT ;++i){
 
@@ -91,7 +91,7 @@ public class Player implements IGameObject {
 
     }
     public void draw(Canvas canvas){
-    canvas.drawRoundRect(DrawRect,0.1f,0.1f,PlayerBodyColor);
+    canvas.drawRoundRect(DrawRect,0.3f,0.3f,PlayerBodyColor);
 
 
         for(int i = 0 ; i < BULLETCOUNT ;++i){

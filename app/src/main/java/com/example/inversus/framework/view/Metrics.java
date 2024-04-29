@@ -58,7 +58,6 @@ public class Metrics {
     }
 
     public static void concat(Canvas canvas) {
-
         canvas.concat(transformMatrix);
     }
 }

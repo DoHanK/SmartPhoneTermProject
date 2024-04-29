@@ -16,7 +16,7 @@ public class MainScene extends Scene {
     private static final String TAG = MainScene.class.getSimpleName();
     private final Player player;
 
-    Button AttackBtn = new Button(R.mipmap.aim, 14.5f, 0f, 2.0f, 0.75f,null);
+    Button AttackBtn = new Button(R.mipmap.aim, 14.0f, 7.0f, 2.0f, 2.0f,null);
     Score score; // package private
     private final JoyStick joyStick;
     public enum Layer {

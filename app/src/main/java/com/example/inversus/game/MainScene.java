@@ -19,7 +19,7 @@ public class MainScene extends Scene {
 
     private  final Camera camera;
 
-    Button AttackBtn = new Button(R.mipmap.aim, 14.0f, 7.0f, 2.0f, 2.0f,null);
+    Button AttackBtn = new Button(R.mipmap.aim, 16.0f, 7.0f, 2.0f, 2.0f,null);
     Score score; // package private
     private final JoyStick joyStick;
     public enum Layer {

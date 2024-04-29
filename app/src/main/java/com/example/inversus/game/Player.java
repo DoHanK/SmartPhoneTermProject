@@ -10,6 +10,7 @@ import android.graphics.RectF;
 
 import com.example.inversus.framework.interfaces.IGameObject;
 import com.example.inversus.framework.objects.JoyStick;
+import com.example.inversus.framework.scene.Scene;
 import com.example.inversus.framework.view.Metrics;
 
 public class Player implements IGameObject {
@@ -20,6 +21,8 @@ public class Player implements IGameObject {
     private static final int BULLETCOUNT = 5;
     private static final float BULLETOFFSET = 0.42f;
     private static final float BULLETSIZE = 0.15f;
+    private static final float SHOOTCOOLTIME = 0.15f;
+    private static final float RELOADTIME = 0.5f;
 
     private final JoyStick joyStick;
     float x ,  y ,dx, dy;
@@ -30,6 +33,7 @@ public class Player implements IGameObject {
     float[] bulletPosX = new float[BULLETCOUNT];
     float[] bulletPosY = new float[BULLETCOUNT];
     RectF[] drawRBullet = new RectF[BULLETCOUNT];
+    float shootCooltime = 0;
     Player(JoyStick joyStick){
 
         this.joyStick = joyStick;
@@ -40,8 +44,8 @@ public class Player implements IGameObject {
         BulletColor.setColor(Color.RED);
 
      DrawRect = new RectF();
-     x  = 9 ;
-     y = 4.5f;
+     x  = 0 ;
+     y = 0;
 
      for(int i = 0 ; i < BULLETCOUNT ;++i){
 
@@ -98,8 +102,6 @@ public class Player implements IGameObject {
     }
     public void draw(Canvas canvas){
     canvas.drawRoundRect(DrawRect,0.3f,0.3f,PlayerBodyColor);
-
-
         for(int i = 0 ; i < BULLETCOUNT ;++i){
 
           canvas.drawOval(drawRBullet[i],BulletColor);
@@ -109,6 +111,6 @@ public class Player implements IGameObject {
     }
 
     public void ShootBullet(){
-
+        Scene.top().add(MainScene.Layer.bullet ,new Bullet(x ,y,angle));
     }
 }

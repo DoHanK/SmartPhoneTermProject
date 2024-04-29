@@ -17,8 +17,8 @@ public class Camera implements IGameObject {
 
     Camera(Player pOwner){
         m_Player = pOwner;
-        Camera_x = 0;
-        Camera_y = 0;
+        Camera_x -=  Metrics.GetWidth()/2;
+        Camera_y -=  Metrics.GetWidth()/2;
         Width =  Metrics.GetWidth();
         Height =  Metrics.GetHeight();
 

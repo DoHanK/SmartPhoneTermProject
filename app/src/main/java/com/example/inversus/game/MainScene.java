@@ -16,6 +16,7 @@ import com.example.inversus.game.Player;
 public class MainScene extends Scene {
     private static final String TAG = MainScene.class.getSimpleName();
     private final Player player;
+    private final GameWord gameWord;
 
     private  final Camera camera;
 
@@ -53,8 +54,8 @@ public class MainScene extends Scene {
 
 
 
-
-
+        this.gameWord = new GameWord();
+        add(Layer.bg, gameWord);
 
 
 

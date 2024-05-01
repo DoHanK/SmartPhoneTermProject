@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.util.Log;
 
 import com.example.inversus.framework.interfaces.IGameObject;
 import com.example.inversus.framework.objects.JoyStick;
@@ -21,27 +22,35 @@ public class Player implements IGameObject {
     private static final int BULLETCOUNT = 5;
     private static final float BULLETOFFSET = 0.42f;
     private static final float BULLETSIZE = 0.15f;
-    private static final float SHOOTCOOLTIME = 0.15f;
-    private static final float RELOADTIME = 0.5f;
+    private static final float SHOOTCOOLTIME = 0.20f;
+    private static final float RELOADTIME = 1.0f;
 
     private final JoyStick joyStick;
-    float x ,  y ,dx, dy;
+    static float x ,  y ,dx, dy;
     private float angle;
     RectF DrawRect;
     Paint PlayerBodyColor;
-    Paint BulletColor;
+    Paint[] BulletColor = new Paint[2];
     float[] bulletPosX = new float[BULLETCOUNT];
     float[] bulletPosY = new float[BULLETCOUNT];
     RectF[] drawRBullet = new RectF[BULLETCOUNT];
-    float shootCooltime = 0;
+
+    int UseableBullet = BULLETCOUNT;
+    float shootTime = 0 ;
+
+    float ReloadTime = 0;
+
+
     Player(JoyStick joyStick){
 
         this.joyStick = joyStick;
 
         PlayerBodyColor = new Paint();
      PlayerBodyColor.setColor(Color.BLACK);
-        BulletColor = new Paint();
-        BulletColor.setColor(Color.RED);
+        BulletColor[0] = new Paint();
+        BulletColor[1] = new Paint();
+        BulletColor[0].setColor(Color.RED);
+        BulletColor[1].setColor(Color.WHITE);
 
      DrawRect = new RectF();
      x  = 0 ;
@@ -56,6 +65,16 @@ public class Player implements IGameObject {
 
     }
     public void update(float elapsedSeconds){
+        shootTime+=elapsedSeconds;
+        ReloadTime+=elapsedSeconds;
+
+        if(ReloadTime>RELOADTIME){
+            ReloadTime =0;
+            UseableBullet++;
+            if(UseableBullet>BULLETCOUNT){
+                UseableBullet = BULLETCOUNT;
+            }
+        }
 
         if (joyStick.power > 0) {
             float distance = SPEED * joyStick.power;
@@ -103,14 +122,23 @@ public class Player implements IGameObject {
     public void draw(Canvas canvas){
     canvas.drawRoundRect(DrawRect,0.3f,0.3f,PlayerBodyColor);
         for(int i = 0 ; i < BULLETCOUNT ;++i){
+            if(UseableBullet>i) {
+                canvas.drawOval(drawRBullet[i], BulletColor[0]);
+            }
+            else{
+                canvas.drawOval(drawRBullet[i], BulletColor[1]);
 
-          canvas.drawOval(drawRBullet[i],BulletColor);
-
+            }
         }
 
     }
 
     public void ShootBullet(){
-        Scene.top().add(MainScene.Layer.bullet ,new Bullet(x ,y,angle));
+        if(shootTime >SHOOTCOOLTIME&& (UseableBullet>0)) {
+            Scene.top().add(MainScene.Layer.bullet, new Bullet(x, y, angle));
+            UseableBullet--;
+            shootTime =0 ;
+        }
+
     }
 }

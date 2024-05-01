@@ -21,8 +21,8 @@ public class GameWord implements IGameObject {
     }
     Paint[] BlockColor =new Paint[4];
     public int[] MAPInfo  = new int[MAPSIZEX*MAPSIZEY];
-    public float[] CellCenterX  = new float[MAPSIZEX*MAPSIZEY];
-    public float[] CellCenterY  = new float[MAPSIZEX*MAPSIZEY];
+    static public float[] CellCenterX  = new float[MAPSIZEX*MAPSIZEY];
+    static public float[] CellCenterY  = new float[MAPSIZEX*MAPSIZEY];
 
     GameWord(){
 
@@ -61,6 +61,8 @@ public class GameWord implements IGameObject {
     @Override
     public void draw(Canvas canvas) {
         Log.d("플레이어 위치" , "x "+Player.x+"y"+Player.y);
+        Log.d("카메라 위치" , "x "+Camera.Camera_x+"y"+Camera.Camera_y);
+       // Log.d("카메라 위치" , "x "+Camera.Camera_x+"y"+Camera.Camera_y);
 
         for(int i = 0; i <MAPSIZEX*MAPSIZEY ; ++i){
             RectF Draw = new RectF();

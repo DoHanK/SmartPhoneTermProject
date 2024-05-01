@@ -8,8 +8,8 @@ import android.graphics.RectF;
 import com.example.inversus.framework.interfaces.IGameObject;
 
 public class Bullet implements IGameObject {
-    private static final float BULLETSIZEX = 0.2f;
-    private static final float BULLETSIZEY = 0.1f;
+    private static final float BULLETSIZEX = 0.4f;
+    private static final float BULLETSIZEY = 0.2f;
 
     private static final float BULLETSPEED = 0.8f;
     float dx, dy ,x,y;

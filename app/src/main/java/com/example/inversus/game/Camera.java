@@ -18,7 +18,7 @@ public class Camera implements IGameObject {
     Camera(Player pOwner){
         m_Player = pOwner;
         Camera_x -=  Metrics.GetWidth()/2;
-        Camera_y -=  Metrics.GetWidth()/2;
+        Camera_y -=  Metrics.GetHeight()/2;
         Width =  Metrics.GetWidth();
         Height =  Metrics.GetHeight();
 
@@ -27,14 +27,36 @@ public class Camera implements IGameObject {
 
     @Override
     public void update(float elapsedSeconds) {
+        float dx ,dy;
 
-        if((m_Player.x -Camera_x)*(m_Player.x -Camera_x)
-                +(m_Player.y -Camera_y) *(m_Player.y -Camera_y) >3.0f) {
-            float dx = (m_Player.x - Width / 2 - Camera_x) / INTERPOLATIONCOUNT;
-            float dy = (m_Player.y - Height / 2 - Camera_y) / INTERPOLATIONCOUNT;
+             dx = (m_Player.x - (Width / 2) - Camera_x) / INTERPOLATIONCOUNT;
+
+             dy = (m_Player.y - (Height / 2) - Camera_y) / INTERPOLATIONCOUNT;
+
+
+
+
             Camera_x += dx;
             Camera_y += dy;
+
+
+        //왼쪽끝에 다다랐을때
+       if(Camera_x -GameWord.CELLSIZE/2 < -GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEX)/2) ) {
+        Camera_x  = -GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEX)/2)+GameWord.CELLSIZE/2;
+       }
+       //오른쪽
+        if(Camera_x + Width + GameWord.CELLSIZE/2> GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEX)/2) ) {
+            Camera_x  = GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEX)/2) -Width -GameWord.CELLSIZE/2;
         }
+        //상
+        if(Camera_y  < -GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEY)/2) ) {
+            Camera_y  = -GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEY)/2);
+        }
+        //하
+        if(Camera_y + Height > GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEY)/2) ) {
+            Camera_y  = GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEY)/2) -Height;
+        }
+
     }
 
     @Override

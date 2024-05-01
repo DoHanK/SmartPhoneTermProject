@@ -90,7 +90,6 @@ public class MainScene extends Scene {
 
             if(AttackBtn.onTouchEvent(event)){
                 this.player.ShootBullet();
-                Log.d("Shoo","pass");
             }
         }
 

@@ -91,6 +91,22 @@ public class Player implements IGameObject {
             dx = dy = 0;
         }
 
+        //왼쪽끝에 다다랐을때
+        if(x -PLAYERSIZE < -GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEX)/2) ) {
+            x   = -GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEX)/2)+PLAYERSIZE;
+        }
+        //오른쪽
+        if(x +PLAYERSIZE > GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEX)/2) ) {
+            x = GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEX)/2)  -PLAYERSIZE;
+        }
+        //상
+        if(y  -PLAYERSIZE< -GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEY)/2) ) {
+            y  = -GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEY)/2) +PLAYERSIZE;
+        }
+        //하
+        if(y + PLAYERSIZE > GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEY)/2) ) {
+            y  = GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEY)/2) -PLAYERSIZE;
+        }
 
 
         UpdateRect();
@@ -136,6 +152,11 @@ public class Player implements IGameObject {
     public void ShootBullet(){
         if(shootTime >SHOOTCOOLTIME&& (UseableBullet>0)) {
             Scene.top().add(MainScene.Layer.bullet, new Bullet(x, y, angle));
+
+            this.dx = (float)(Math.cos((float)Math.toRadians(angle)));
+            this.dy = (float)(Math.sin((float)Math.toRadians(angle)));
+            Camera.Camera_x +=-dx;
+            Camera.Camera_y +=-dy;
             UseableBullet--;
             shootTime =0 ;
         }

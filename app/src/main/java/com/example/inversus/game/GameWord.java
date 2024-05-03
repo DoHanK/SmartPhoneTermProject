@@ -11,8 +11,8 @@ import com.example.inversus.framework.interfaces.IGameObject;
 public class GameWord implements IGameObject {
 
 
-    public static final int MAPSIZEX = 30;
-    public static final int MAPSIZEY = 30;
+    public static final int MAPSIZEX = 50;
+    public static final int MAPSIZEY = 50;
     public static final float CELLSIZE = 2.0F;
     public static final float HALFCELLSIZE = CELLSIZE/2;
 
@@ -61,8 +61,6 @@ public class GameWord implements IGameObject {
     @Override
     public void draw(Canvas canvas) {
         Log.d("플레이어 위치" , "x "+Player.x+"y"+Player.y);
-        Log.d("카메라 위치" , "x "+Camera.Camera_x+"y"+Camera.Camera_y);
-       // Log.d("카메라 위치" , "x "+Camera.Camera_x+"y"+Camera.Camera_y);
 
         for(int i = 0; i <MAPSIZEX*MAPSIZEY ; ++i){
             RectF Draw = new RectF();

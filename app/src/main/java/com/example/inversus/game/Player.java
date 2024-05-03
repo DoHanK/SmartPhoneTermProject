@@ -5,8 +5,10 @@ import static java.lang.Math.toRadians;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.Shader;
 import android.util.Log;
 
 import com.example.inversus.framework.interfaces.IGameObject;
@@ -24,11 +26,19 @@ public class Player implements IGameObject {
     private static final float BULLETSIZE = 0.15f;
     private static final float SHOOTCOOLTIME = 0.20f;
     private static final float RELOADTIME = 1.0f;
+    private static final float TRAILERCOOLTIME = 0.001f;
+    private static final float TRAILERSIZE = 0.90f;
+    private static final int SHADOWCOUNT = 20;
+
 
     private final JoyStick joyStick;
     static float x ,  y ,dx, dy;
     private float angle;
     RectF DrawRect;
+    RectF[] DrawShadowRect = new RectF[SHADOWCOUNT];
+    float[] ShadowX = new float[SHADOWCOUNT];
+    float[] ShadowY =new float[SHADOWCOUNT];
+    Paint[] ShadowColor = new Paint[SHADOWCOUNT];
     Paint PlayerBodyColor;
     Paint[] BulletColor = new Paint[2];
     float[] bulletPosX = new float[BULLETCOUNT];
@@ -39,6 +49,7 @@ public class Player implements IGameObject {
     float shootTime = 0 ;
 
     float ReloadTime = 0;
+    float trailTime = 0;
 
 
     Player(JoyStick joyStick){
@@ -62,12 +73,19 @@ public class Player implements IGameObject {
          bulletPosY[i] = BULLETOFFSET * (float)(Math.sin(toRadians(360.f/BULLETCOUNT)*i));
          drawRBullet[i] = new RectF();
      }
+     for(int i = 0; i <SHADOWCOUNT ; i++){
+
+         DrawShadowRect[i] = new RectF();
+         ShadowColor[i] =new Paint();
+
+         ShadowColor[i].setColor(Color.rgb((i*255/SHADOWCOUNT),(i*255/SHADOWCOUNT),(i*255/SHADOWCOUNT)));
+     }
 
     }
     public void update(float elapsedSeconds){
         shootTime+=elapsedSeconds;
         ReloadTime+=elapsedSeconds;
-
+        trailTime+=elapsedSeconds;
         if(ReloadTime>RELOADTIME){
             ReloadTime =0;
             UseableBullet++;
@@ -75,6 +93,8 @@ public class Player implements IGameObject {
                 UseableBullet = BULLETCOUNT;
             }
         }
+
+
 
         if (joyStick.power > 0) {
             float distance = SPEED * joyStick.power;
@@ -108,7 +128,6 @@ public class Player implements IGameObject {
             y  = GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEY)/2) -PLAYERSIZE;
         }
 
-
         UpdateRect();
         RotateBullet(elapsedSeconds);
     }
@@ -127,6 +146,31 @@ public class Player implements IGameObject {
         }
     }
     public void UpdateRect(){
+        //쉐도우 업데이트
+        if(trailTime > TRAILERCOOLTIME){
+            for(int i = SHADOWCOUNT-1 ; i > 0 ; --i) {
+                ShadowX[i] = ShadowX[i-1];
+                ShadowY[i] = ShadowY[i-1];
+
+                DrawShadowRect[i].bottom =  ShadowY[i]+(float)Math.pow(TRAILERSIZE,i)-Camera.Camera_y;
+                DrawShadowRect[i].top =  ShadowY[i]-(float)Math.pow(TRAILERSIZE,i)-Camera.Camera_y;
+                DrawShadowRect[i].left =  ShadowX[i]-(float)Math.pow(TRAILERSIZE,i)-Camera.Camera_x;
+                DrawShadowRect[i].right =  ShadowX[i]+(float)Math.pow(TRAILERSIZE,i)-Camera.Camera_x;
+
+
+            }
+            ShadowX[0] = x;
+            ShadowY[0] = y;
+            DrawShadowRect[0].bottom =  ShadowY[0]+(float)Math.pow(TRAILERSIZE,1)-Camera.Camera_y;
+            DrawShadowRect[0].top =  ShadowY[0]+(float)Math.pow(TRAILERSIZE,1)-Camera.Camera_y;
+            DrawShadowRect[0].left =  ShadowX[0]+(float)Math.pow(TRAILERSIZE,1)-Camera.Camera_x;
+            DrawShadowRect[0].right =  ShadowX[0]+(float)Math.pow(TRAILERSIZE,1)-Camera.Camera_x;
+
+
+            trailTime =0;
+        }
+
+
 
         DrawRect.top = y + PLAYERSIZE -Camera.Camera_y;
         DrawRect.bottom =  y- PLAYERSIZE - Camera.Camera_y;
@@ -136,7 +180,15 @@ public class Player implements IGameObject {
 
     }
     public void draw(Canvas canvas){
+        for(int i = SHADOWCOUNT-1 ; i > -1 ; --i) {
+
+            canvas.drawRoundRect(DrawShadowRect[i],0.3f,0.3f,ShadowColor[i]);
+        }
     canvas.drawRoundRect(DrawRect,0.3f,0.3f,PlayerBodyColor);
+
+
+
+
         for(int i = 0 ; i < BULLETCOUNT ;++i){
             if(UseableBullet>i) {
                 canvas.drawOval(drawRBullet[i], BulletColor[0]);

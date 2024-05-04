@@ -27,7 +27,7 @@ public class RecycleBin {
         ArrayList<IRecyclable> bin = recycleBin.get(clazz);
         if (bin == null) return null;
         if (bin.size() == 0) return null;
-        //Log.d(TAG, "get(): " + clazz.getSimpleName() + " : " + (bin.size() - 1) + " objects");
+        Log.d(TAG, "get(): " + clazz.getSimpleName() + " : " + (bin.size() - 1) + " objects");
         return bin.remove(0);
     }
 }

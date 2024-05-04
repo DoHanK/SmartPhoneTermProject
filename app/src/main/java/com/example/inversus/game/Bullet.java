@@ -6,9 +6,12 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 
 import com.example.inversus.framework.interfaces.IGameObject;
+import com.example.inversus.framework.interfaces.IRecyclable;
+import com.example.inversus.framework.scene.RecycleBin;
+import com.example.inversus.framework.scene.Scene;
 
-public class Bullet implements IGameObject {
-    private static final float BULLETSIZEX = 0.4f;
+public class Bullet implements IGameObject, IRecyclable {
+    private static final float BULLETSIZEX = 0.2f;
     private static final float BULLETSIZEY = 0.2f;
 
     private static final float BULLETSPEED = 0.8f;
@@ -37,6 +40,17 @@ public class Bullet implements IGameObject {
 
         this.angle = angle;
     }
+
+    public static Bullet get(float x, float y, float angle) {
+        Bullet bullet = (Bullet) RecycleBin.get(Bullet.class);
+        if (bullet != null) {
+            bullet.x = x;
+            bullet.y = y;
+            bullet.angle = angle;
+            return bullet;
+        }
+        return new Bullet(x, y, angle);
+    }
     @Override
     public void update(float elapsedSeconds) {
         x+=dx;
@@ -46,6 +60,32 @@ public class Bullet implements IGameObject {
         DrawRect.bottom = y +BULLETSIZEY-Camera.Camera_y;
         DrawRect.left = x -BULLETSIZEX-Camera.Camera_x;
         DrawRect.right = x +BULLETSIZEX -Camera.Camera_x;
+
+        boolean boutline = false;
+        //왼쪽끝에 다다랐을때
+        if(x -BULLETSIZEY < -GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEX)/2) ) {
+            boutline =true;
+        }
+        //오른쪽
+        if(x +BULLETSIZEY > GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEX)/2) ) {
+            boutline =true;
+        }
+        //상
+        if(y  -BULLETSIZEY< -GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEY)/2) ) {
+            boutline =true;
+        }
+        //하
+        if(y + BULLETSIZEY > GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEY)/2) ) {
+            boutline = true;
+        }
+
+        if(boutline){
+            Scene scene = MainScene.top();
+            scene.remove(MainScene.Layer.bullet,this);
+            RecycleBin.collect(this);
+
+
+        }
     }
 
     @Override
@@ -56,5 +96,10 @@ public class Bullet implements IGameObject {
         canvas.rotate(angle  , x-Camera.Camera_x, y-Camera.Camera_y);
         canvas.drawRect(DrawRect,BulletColor);
         canvas.restore();
+    }
+
+    @Override
+    public void onRecycle() {
+
     }
 }

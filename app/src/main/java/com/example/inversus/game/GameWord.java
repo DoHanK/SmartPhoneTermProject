@@ -60,7 +60,7 @@ public class GameWord implements IGameObject {
 
     @Override
     public void draw(Canvas canvas) {
-        Log.d("플레이어 위치" , "x "+Player.x+"y"+Player.y);
+        //Log.d("플레이어 위치" , "x "+Player.x+"y"+Player.y);
 
         for(int i = 0; i <MAPSIZEX*MAPSIZEY ; ++i){
             RectF Draw = new RectF();

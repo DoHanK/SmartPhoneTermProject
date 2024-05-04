@@ -27,7 +27,7 @@ public class Player implements IGameObject {
     private static final float SHOOTCOOLTIME = 0.20f;
     private static final float RELOADTIME = 1.0f;
     private static final float TRAILERCOOLTIME = 0.001f;
-    private static final float TRAILERSIZE = 0.90f;
+    private static final float TRAILERSIZE = 0.92f;
     private static final int SHADOWCOUNT = 20;
 
 
@@ -176,7 +176,7 @@ public class Player implements IGameObject {
         DrawRect.bottom =  y- PLAYERSIZE - Camera.Camera_y;
         DrawRect.left = x - PLAYERSIZE -Camera.Camera_x;
         DrawRect.right = x + PLAYERSIZE -Camera.Camera_x;
-
+        //유효총알 검사.
 
     }
     public void draw(Canvas canvas){
@@ -203,7 +203,8 @@ public class Player implements IGameObject {
 
     public void ShootBullet(){
         if(shootTime >SHOOTCOOLTIME&& (UseableBullet>0)) {
-            Scene.top().add(MainScene.Layer.bullet, new Bullet(x, y, angle));
+            Bullet bullet = Bullet.get(x, y, angle);
+            Scene.top().add(MainScene.Layer.bullet, bullet);
 
             this.dx = (float)(Math.cos((float)Math.toRadians(angle)));
             this.dy = (float)(Math.sin((float)Math.toRadians(angle)));

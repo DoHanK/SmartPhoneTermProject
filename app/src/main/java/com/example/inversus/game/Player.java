@@ -11,12 +11,13 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.util.Log;
 
+import com.example.inversus.framework.interfaces.IBoxCollidable;
 import com.example.inversus.framework.interfaces.IGameObject;
 import com.example.inversus.framework.objects.JoyStick;
 import com.example.inversus.framework.scene.Scene;
 import com.example.inversus.framework.view.Metrics;
 
-public class Player implements IGameObject {
+public class Player implements IGameObject , IBoxCollidable {
 
     private static final float SPEED = 8.0f;
 
@@ -30,7 +31,7 @@ public class Player implements IGameObject {
     private static final float TRAILERSIZE = 0.92f;
     private static final int SHADOWCOUNT = 20;
 
-
+    protected RectF collisionRect = new RectF();
     private final JoyStick joyStick;
     static float x ,  y ,dx, dy;
     private float angle;
@@ -77,8 +78,7 @@ public class Player implements IGameObject {
 
          DrawShadowRect[i] = new RectF();
          ShadowColor[i] =new Paint();
-
-         ShadowColor[i].setColor(Color.rgb((i*255/SHADOWCOUNT),(i*255/SHADOWCOUNT),(i*255/SHADOWCOUNT)));
+         ShadowColor[i].setColor( Color.argb(((SHADOWCOUNT-i)*255/SHADOWCOUNT),(i*255/SHADOWCOUNT),(i*255/SHADOWCOUNT),(i*255/SHADOWCOUNT)));
      }
 
     }
@@ -178,6 +178,12 @@ public class Player implements IGameObject {
         DrawRect.right = x + PLAYERSIZE -Camera.Camera_x;
         //유효총알 검사.
 
+        // Collision Update
+        collisionRect.top = y + PLAYERSIZE;
+        collisionRect.bottom =  y- PLAYERSIZE ;
+        collisionRect.left = x - PLAYERSIZE;
+        collisionRect.right = x + PLAYERSIZE ;
+
     }
     public void draw(Canvas canvas){
         for(int i = SHADOWCOUNT-1 ; i > -1 ; --i) {
@@ -214,5 +220,10 @@ public class Player implements IGameObject {
             shootTime =0 ;
         }
 
+    }
+
+    @Override
+    public RectF getCollisionRect() {
+        return collisionRect;
     }
 }

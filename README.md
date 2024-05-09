@@ -60,7 +60,12 @@ Make With Android Studio
 6주차| 디버깅
 7주차| 게임 컨텐츠 제작
 8주차| 디버깅
-
-
-
 9주자| 게임 최종 검수
+
+### **6.현재 진행상황**
+>5주차 진행상황
+>>로비화면 구현
+>>><img width="253" alt="로비화면" src="https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/09f8b6de-8120-4d01-867c-5171b5d88895">
+>>플레이 화면
+>>> 종횡스크롤 이동, 플레이어 이동 시 잔상, 총알 발사, 맵 바운드 예외처리
+>>><img width="263" alt="게임화면" src="https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/24715f80-923c-411f-9bda-4fb98dd4747d">

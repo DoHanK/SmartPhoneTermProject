@@ -63,6 +63,7 @@ Make With Android Studio
 9주자| 게임 최종 검수
 
 ### **6.현재 진행상황**
+---
 >5주차 진행상황
 >>로비화면 구현
 >>><img width="253" alt="로비화면" src="https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/09f8b6de-8120-4d01-867c-5171b5d88895">

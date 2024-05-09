@@ -172,17 +172,17 @@ public class Player implements IGameObject , IBoxCollidable {
 
 
 
-        DrawRect.top = y + PLAYERSIZE -Camera.Camera_y;
-        DrawRect.bottom =  y- PLAYERSIZE - Camera.Camera_y;
+        DrawRect.top = y - PLAYERSIZE -Camera.Camera_y;
+        DrawRect.bottom =  y + PLAYERSIZE - Camera.Camera_y;
         DrawRect.left = x - PLAYERSIZE -Camera.Camera_x;
         DrawRect.right = x + PLAYERSIZE -Camera.Camera_x;
         //유효총알 검사.
 
         // Collision Update
-        collisionRect.top = y + PLAYERSIZE;
-        collisionRect.bottom =  y- PLAYERSIZE ;
-        collisionRect.left = x - PLAYERSIZE;
-        collisionRect.right = x + PLAYERSIZE ;
+        collisionRect.top = DrawRect.top;
+        collisionRect.bottom =  DrawRect.bottom ;
+        collisionRect.left = DrawRect.left;
+        collisionRect.right =DrawRect.right ;
 
     }
     public void draw(Canvas canvas){

@@ -12,8 +12,8 @@ import com.example.inversus.framework.scene.RecycleBin;
 import com.example.inversus.framework.scene.Scene;
 
 public class Bullet implements IGameObject, IRecyclable, IBoxCollidable {
-    private static final float BULLETSIZEX = 0.2f;
-    private static final float BULLETSIZEY = 0.2f;
+    private static final float BULLETSIZE = 0.3f;
+
     private static final int SHADOWCOUNT = 10;
     private static final float BULLETSPEED = 8.0f;
     private static final float TRAILERSIZE = 0.95f;
@@ -37,10 +37,10 @@ public class Bullet implements IGameObject, IRecyclable, IBoxCollidable {
         BulletColor = new Paint(Color.BLACK);
         this.x = x;
         this.y = y;
-        DrawRect.top = y -BULLETSIZEY;
-        DrawRect.bottom = y +BULLETSIZEY;
-        DrawRect.left = x -BULLETSIZEY;
-        DrawRect.right = x +BULLETSIZEY;
+        DrawRect.top = y + BULLETSIZE;
+        DrawRect.bottom = y -BULLETSIZE;
+        DrawRect.left = x -BULLETSIZE;
+        DrawRect.right = x +BULLETSIZE;
 
        // bulletPosX[i] =  X * (float)Math.cos(elapsedSeconds) - Y * (float)Math.sin(elapsedSeconds);
         //bulletPosY[i] = X * (float)Math.sin(elapsedSeconds) + Y * (float)Math.cos(elapsedSeconds);
@@ -79,26 +79,26 @@ public class Bullet implements IGameObject, IRecyclable, IBoxCollidable {
         y+=dy*elapsedSeconds*BULLETSPEED;
         trailTime+=elapsedSeconds;
 
-        DrawRect.top = y -BULLETSIZEY-Camera.Camera_y;
-        DrawRect.bottom = y +BULLETSIZEY-Camera.Camera_y;
-        DrawRect.left = x -BULLETSIZEX-Camera.Camera_x;
-        DrawRect.right = x +BULLETSIZEX -Camera.Camera_x;
+        DrawRect.top = y - BULLETSIZE-Camera.Camera_y;
+        DrawRect.bottom = y +BULLETSIZE-Camera.Camera_y;
+        DrawRect.left = x -BULLETSIZE-Camera.Camera_x;
+        DrawRect.right = x +BULLETSIZE -Camera.Camera_x;
 
         boolean boutline = false;
         //왼쪽끝에 다다랐을때
-        if(x -BULLETSIZEY < -GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEX)/2) ) {
+        if(x -BULLETSIZE < -GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEX)/2) ) {
             boutline =true;
         }
         //오른쪽
-        if(x +BULLETSIZEY > GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEX)/2) ) {
+        if(x +BULLETSIZE > GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEX)/2) ) {
             boutline =true;
         }
         //상
-        if(y  -BULLETSIZEY< -GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEY)/2) ) {
+        if(y  -BULLETSIZE< -GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEY)/2) ) {
             boutline =true;
         }
         //하
-        if(y + BULLETSIZEY > GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEY)/2) ) {
+        if(y + BULLETSIZE > GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEY)/2) ) {
             boutline = true;
         }
 
@@ -115,19 +115,19 @@ public class Bullet implements IGameObject, IRecyclable, IBoxCollidable {
                 ShadowX[i] = ShadowX[i - 1];
                 ShadowY[i] = ShadowY[i - 1];
 
-                DrawShadowRect[i].bottom = ShadowY[i] + BULLETSIZEY * (float) Math.pow(TRAILERSIZE, i) - Camera.Camera_y;
-                DrawShadowRect[i].top = ShadowY[i] - BULLETSIZEY * (float) Math.pow(TRAILERSIZE, i) - Camera.Camera_y;
-                DrawShadowRect[i].left = ShadowX[i] - BULLETSIZEY * (float) Math.pow(TRAILERSIZE, i) - Camera.Camera_x;
-                DrawShadowRect[i].right = ShadowX[i] + BULLETSIZEY * (float) Math.pow(TRAILERSIZE, i) - Camera.Camera_x;
+                DrawShadowRect[i].bottom = ShadowY[i] - BULLETSIZE * (float) Math.pow(TRAILERSIZE, i) - Camera.Camera_y;
+                DrawShadowRect[i].top = ShadowY[i] + BULLETSIZE * (float) Math.pow(TRAILERSIZE, i) - Camera.Camera_y;
+                DrawShadowRect[i].left = ShadowX[i] - BULLETSIZE * (float) Math.pow(TRAILERSIZE, i) - Camera.Camera_x;
+                DrawShadowRect[i].right = ShadowX[i] + BULLETSIZE * (float) Math.pow(TRAILERSIZE, i) - Camera.Camera_x;
 
 
             }
             ShadowX[0] = x;
             ShadowY[0] = y;
-            DrawShadowRect[0].bottom = ShadowY[0] + BULLETSIZEY * (float) Math.pow(TRAILERSIZE, 0) - Camera.Camera_y;
-            DrawShadowRect[0].top = ShadowY[0] - BULLETSIZEY * (float) Math.pow(TRAILERSIZE, 0) - Camera.Camera_y;
-            DrawShadowRect[0].left = ShadowX[0] - BULLETSIZEY * (float) Math.pow(TRAILERSIZE, 0) - Camera.Camera_x;
-            DrawShadowRect[0].right = ShadowX[0] + BULLETSIZEY * (float) Math.pow(TRAILERSIZE, 0) - Camera.Camera_x;
+            DrawShadowRect[0].bottom = ShadowY[0] + BULLETSIZE * (float) Math.pow(TRAILERSIZE, 0) - Camera.Camera_y;
+            DrawShadowRect[0].top = ShadowY[0] - BULLETSIZE * (float) Math.pow(TRAILERSIZE, 0) - Camera.Camera_y;
+            DrawShadowRect[0].left = ShadowX[0] - BULLETSIZE * (float) Math.pow(TRAILERSIZE, 0) - Camera.Camera_x;
+            DrawShadowRect[0].right = ShadowX[0] + BULLETSIZE * (float) Math.pow(TRAILERSIZE, 0) - Camera.Camera_x;
 
 
             trailTime = 0;
@@ -136,7 +136,10 @@ public class Bullet implements IGameObject, IRecyclable, IBoxCollidable {
 
 
 
-        collisionRect = DrawRect;
+        collisionRect.top =   DrawRect.top;
+        collisionRect.bottom=  DrawRect.bottom ;
+        collisionRect.left =       DrawRect.left;
+        collisionRect.right =     DrawRect.right ;
 
     }
 

@@ -59,15 +59,18 @@ public class Enemy  implements IBoxCollidable, IRecyclable, IGameObject {
      y += dy*elapsedSeconds*SPEED;
 
 
-        EnemyRect.top = y + PLAYERSIZE -Camera.Camera_y;
-        EnemyRect.bottom =  y- PLAYERSIZE - Camera.Camera_y;
+        EnemyRect.top = y - PLAYERSIZE -Camera.Camera_y;
+        EnemyRect.bottom =  y +PLAYERSIZE - Camera.Camera_y;
         EnemyRect.left = x - PLAYERSIZE -Camera.Camera_x;
         EnemyRect.right = x + PLAYERSIZE -Camera.Camera_x;
 
 
         // Collision Update
         collisionRect =EnemyRect;
-
+        collisionRect.top =   EnemyRect.top;
+        collisionRect.bottom=  EnemyRect.bottom ;
+        collisionRect.left =       EnemyRect.left;
+        collisionRect.right =     EnemyRect.right ;
     }
 
     @Override

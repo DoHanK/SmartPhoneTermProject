@@ -47,6 +47,8 @@ public class Bullet implements IGameObject, IRecyclable {
             bullet.x = x;
             bullet.y = y;
             bullet.angle = angle;
+            bullet.dx = (float)(Math.cos((float)Math.toRadians(angle)))*BULLETSPEED;
+            bullet.dy = (float)(Math.sin((float)Math.toRadians(angle)))*BULLETSPEED;
             return bullet;
         }
         return new Bullet(x, y, angle);

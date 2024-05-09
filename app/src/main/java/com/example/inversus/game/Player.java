@@ -22,7 +22,7 @@ public class Player implements IGameObject {
 
     private static final float PLAYERSIZE = 0.8f;
     private static final int BULLETCOUNT = 6;
-    private static final float BULLETOFFSET = 0.42f;
+    private static final float BULLETOFFSET = 0.5f;
     private static final float BULLETSIZE = 0.15f;
     private static final float SHOOTCOOLTIME = 0.20f;
     private static final float RELOADTIME = 1.0f;

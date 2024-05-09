@@ -7,8 +7,11 @@ import android.graphics.RectF;
 import android.util.Log;
 
 import com.example.inversus.framework.interfaces.IGameObject;
+import com.example.inversus.framework.util.CollisionHelper;
 
-public class GameWord implements IGameObject {
+import kotlin.random.Random;
+
+public class  GameWorld implements IGameObject {
 
 
     public static final int MAPSIZEX = 50;
@@ -20,16 +23,29 @@ public class GameWord implements IGameObject {
         pass,dynamicwall,staticwall,end
     }
     Paint[] BlockColor =new Paint[4];
-    public int[] MAPInfo  = new int[MAPSIZEX*MAPSIZEY];
+    static public int[] MAPInfo  = new int[MAPSIZEX*MAPSIZEY];
     static public float[] CellCenterX  = new float[MAPSIZEX*MAPSIZEY];
     static public float[] CellCenterY  = new float[MAPSIZEX*MAPSIZEY];
-
-    GameWord(){
+    static RectF[] collisionRect = new RectF[MAPSIZEX*MAPSIZEY];
+    GameWorld(){
 
         for(int i = 0; i <MAPSIZEX *MAPSIZEY ; ++i){
-            MAPInfo[i] = 0;
+
+
             CellCenterX[i] = -(MAPSIZEX/2) *CELLSIZE + (i % MAPSIZEX) *CELLSIZE +HALFCELLSIZE;
             CellCenterY[i] =-(MAPSIZEY/2) *CELLSIZE + (i / MAPSIZEX) *CELLSIZE +HALFCELLSIZE;
+            collisionRect[i] = new RectF();
+            collisionRect[i].left = CellCenterX[i] -HALFCELLSIZE -Camera.Camera_x;
+            collisionRect[i].right = CellCenterX[i] + HALFCELLSIZE-Camera.Camera_x;;
+            collisionRect[i].top = CellCenterY[i] - HALFCELLSIZE-Camera.Camera_y;;
+            collisionRect[i].bottom = CellCenterY[i] + HALFCELLSIZE-Camera.Camera_y;;
+
+
+            if(Random.Default.nextInt(0,10) == 0 ) {
+                if (!CollisionHelper.collides(collisionRect[i], Player.collisionRect))
+                    MAPInfo[i] = MapState.staticwall.ordinal();
+            }
+
 
         }
 
@@ -40,11 +56,11 @@ public class GameWord implements IGameObject {
 
         BlockColor[1] = new Paint();
         BlockColor[1].setStyle(Paint.Style.FILL);
-        BlockColor[1].setColor(Color.RED);
+        BlockColor[1].setColor(Color.GRAY);
 
         BlockColor[2] = new Paint();
         BlockColor[2].setStyle(Paint.Style.FILL);
-        BlockColor[2].setColor(Color.CYAN);
+        BlockColor[2].setColor(Color.BLACK);
 
         BlockColor[3] = new Paint();
         BlockColor[3].setStyle(Paint.Style.STROKE);
@@ -64,13 +80,13 @@ public class GameWord implements IGameObject {
 
         for(int i = 0; i <MAPSIZEX*MAPSIZEY ; ++i){
             RectF Draw = new RectF();
-            Draw.left = CellCenterX[i] -HALFCELLSIZE -Camera.Camera_x;
-            Draw.right = CellCenterX[i] + HALFCELLSIZE-Camera.Camera_x;;
-            Draw.top = CellCenterY[i] - HALFCELLSIZE-Camera.Camera_y;;
-            Draw.bottom = CellCenterY[i] + HALFCELLSIZE-Camera.Camera_y;;
+            collisionRect[i].left = CellCenterX[i] -HALFCELLSIZE -Camera.Camera_x;
+            collisionRect[i].right = CellCenterX[i] + HALFCELLSIZE-Camera.Camera_x;;
+            collisionRect[i].top = CellCenterY[i] - HALFCELLSIZE-Camera.Camera_y;;
+            collisionRect[i].bottom = CellCenterY[i] + HALFCELLSIZE-Camera.Camera_y;;
 
-            canvas.drawRect(Draw, BlockColor[MAPInfo[i]]);
-            canvas.drawRect(Draw, BlockColor[3]);
+            canvas.drawRect( collisionRect[i], BlockColor[MAPInfo[i]]);
+            canvas.drawRect( collisionRect[i], BlockColor[3]);
 
         }
 

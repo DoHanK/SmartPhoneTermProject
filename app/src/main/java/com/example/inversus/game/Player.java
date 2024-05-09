@@ -15,6 +15,7 @@ import com.example.inversus.framework.interfaces.IBoxCollidable;
 import com.example.inversus.framework.interfaces.IGameObject;
 import com.example.inversus.framework.objects.JoyStick;
 import com.example.inversus.framework.scene.Scene;
+import com.example.inversus.framework.util.CollisionHelper;
 import com.example.inversus.framework.view.Metrics;
 
 public class Player implements IGameObject , IBoxCollidable {
@@ -31,7 +32,7 @@ public class Player implements IGameObject , IBoxCollidable {
     private static final float TRAILERSIZE = 0.92f;
     private static final int SHADOWCOUNT = 20;
 
-    protected RectF collisionRect = new RectF();
+    public static RectF collisionRect = new RectF();
     private final JoyStick joyStick;
     static float x ,  y ,dx, dy;
     private float angle;
@@ -52,6 +53,8 @@ public class Player implements IGameObject , IBoxCollidable {
     float ReloadTime = 0;
     float trailTime = 0;
 
+    float prex =0;
+    float prey =0;
 
     Player(JoyStick joyStick){
 
@@ -67,7 +70,7 @@ public class Player implements IGameObject , IBoxCollidable {
      DrawRect = new RectF();
      x  = 0 ;
      y = 0;
-
+        UpdateRect();
      for(int i = 0 ; i < BULLETCOUNT ;++i){
 
          bulletPosX[i] = BULLETOFFSET * (float)(Math.cos(toRadians(360.f/BULLETCOUNT)*i));
@@ -81,11 +84,15 @@ public class Player implements IGameObject , IBoxCollidable {
          ShadowColor[i].setColor( Color.argb(((SHADOWCOUNT-i)*255/SHADOWCOUNT),(i*255/SHADOWCOUNT),(i*255/SHADOWCOUNT),(i*255/SHADOWCOUNT)));
      }
 
+
+
     }
     public void update(float elapsedSeconds){
         shootTime+=elapsedSeconds;
         ReloadTime+=elapsedSeconds;
         trailTime+=elapsedSeconds;
+
+
         if(ReloadTime>RELOADTIME){
             ReloadTime =0;
             UseableBullet++;
@@ -93,6 +100,8 @@ public class Player implements IGameObject , IBoxCollidable {
                 UseableBullet = BULLETCOUNT;
             }
         }
+
+
 
 
 
@@ -104,6 +113,8 @@ public class Player implements IGameObject , IBoxCollidable {
 
             float timedDx = dx * elapsedSeconds;
             float timedDy = dy * elapsedSeconds;
+            prex =x;
+            prey =y;
             x += timedDx;
             y += timedDy;
 
@@ -111,24 +122,46 @@ public class Player implements IGameObject , IBoxCollidable {
             dx = dy = 0;
         }
 
-        //왼쪽끝에 다다랐을때
-        if(x -PLAYERSIZE < -GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEX)/2) ) {
-            x   = -GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEX)/2)+PLAYERSIZE;
-        }
-        //오른쪽
-        if(x +PLAYERSIZE > GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEX)/2) ) {
-            x = GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEX)/2)  -PLAYERSIZE;
-        }
-        //상
-        if(y  -PLAYERSIZE< -GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEY)/2) ) {
-            y  = -GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEY)/2) +PLAYERSIZE;
-        }
-        //하
-        if(y + PLAYERSIZE > GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEY)/2) ) {
-            y  = GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEY)/2) -PLAYERSIZE;
-        }
 
         UpdateRect();
+
+            for(int i = 0; i <GameWorld.MAPSIZEX*GameWorld.MAPSIZEY ; ++i) {
+
+                if (GameWorld.MAPInfo[i] != 0) {
+                    if (CollisionHelper.collides(GameWorld.collisionRect[i], collisionRect)) {
+                        x = prex;
+                        y = prey;
+                    }
+
+                }
+
+
+            }
+
+
+
+
+
+
+
+
+        //왼쪽끝에 다다랐을때
+        if(x -PLAYERSIZE < -GameWorld.CELLSIZE * ((float)(GameWorld.MAPSIZEX)/2) ) {
+            x   = -GameWorld.CELLSIZE * ((float)(GameWorld.MAPSIZEX)/2)+PLAYERSIZE;
+        }
+        //오른쪽
+        if(x +PLAYERSIZE > GameWorld.CELLSIZE * ((float)(GameWorld.MAPSIZEX)/2) ) {
+            x = GameWorld.CELLSIZE * ((float)(GameWorld.MAPSIZEX)/2)  -PLAYERSIZE;
+        }
+        //상
+        if(y  -PLAYERSIZE< -GameWorld.CELLSIZE * ((float)(GameWorld.MAPSIZEY)/2) ) {
+            y  = -GameWorld.CELLSIZE * ((float)(GameWorld.MAPSIZEY)/2) +PLAYERSIZE;
+        }
+        //하
+        if(y + PLAYERSIZE > GameWorld.CELLSIZE * ((float)(GameWorld.MAPSIZEY)/2) ) {
+            y  = GameWorld.CELLSIZE * ((float)(GameWorld.MAPSIZEY)/2) -PLAYERSIZE;
+        }
+
         RotateBullet(elapsedSeconds);
     }
 

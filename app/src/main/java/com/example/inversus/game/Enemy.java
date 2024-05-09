@@ -23,7 +23,7 @@ public class Enemy  implements IBoxCollidable, IRecyclable, IGameObject {
     float x ,y , dx ,dy;
     protected RectF EnemyRect = new RectF();
     Paint BodyColor;
-    Enemy () {
+    Enemy (float x, float y) {
         x = 0;
         y = 0;
         dx = 0;

@@ -86,19 +86,19 @@ public class Bullet implements IGameObject, IRecyclable, IBoxCollidable {
 
         boolean boutline = false;
         //왼쪽끝에 다다랐을때
-        if(x -BULLETSIZE < -GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEX)/2) ) {
+        if(x -BULLETSIZE < -GameWorld.CELLSIZE * ((float)(GameWorld.MAPSIZEX)/2) ) {
             boutline =true;
         }
         //오른쪽
-        if(x +BULLETSIZE > GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEX)/2) ) {
+        if(x +BULLETSIZE > GameWorld.CELLSIZE * ((float)(GameWorld.MAPSIZEX)/2) ) {
             boutline =true;
         }
         //상
-        if(y  -BULLETSIZE< -GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEY)/2) ) {
+        if(y  -BULLETSIZE< -GameWorld.CELLSIZE * ((float)(GameWorld.MAPSIZEY)/2) ) {
             boutline =true;
         }
         //하
-        if(y + BULLETSIZE > GameWord.CELLSIZE * ((float)(GameWord.MAPSIZEY)/2) ) {
+        if(y + BULLETSIZE > GameWorld.CELLSIZE * ((float)(GameWorld.MAPSIZEY)/2) ) {
             boutline = true;
         }
 

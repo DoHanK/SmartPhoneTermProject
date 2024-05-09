@@ -27,7 +27,7 @@ public class EnemyGenerator implements IGameObject {
         Scene scene = Scene.top();
         if (scene == null) return;
 
-        scene.add(MainScene.Layer.enemy, new Enemy());
+        scene.add(MainScene.Layer.enemy, new Enemy(random.nextInt(50),random.nextInt(50)));
     }
 
     @Override

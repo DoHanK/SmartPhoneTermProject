@@ -41,7 +41,7 @@ public class  GameWorld implements IGameObject {
             collisionRect[i].bottom = CellCenterY[i] + HALFCELLSIZE-Camera.Camera_y;;
 
 
-            if(Random.Default.nextInt(0,10) == 0 ) {
+            if(Random.Default.nextInt(0,20) == 0 ) {
                 if (!CollisionHelper.collides(collisionRect[i], Player.collisionRect))
                     MAPInfo[i] = MapState.staticwall.ordinal();
             }

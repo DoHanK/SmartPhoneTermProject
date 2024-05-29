@@ -24,7 +24,7 @@ public class MainScene extends Scene {
     Score score; // package private
     private final JoyStick joyStick;
     public enum Layer {
-        bg, enemy, bullet, player, ui,touch, controller, COUNT
+        bg, enemy, bullet, player,effect, ui,touch, controller, COUNT
     }
     public MainScene() {
         initLayers(Layer.COUNT);

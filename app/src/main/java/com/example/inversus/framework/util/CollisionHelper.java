@@ -14,7 +14,7 @@ public class CollisionHelper {
         if (r1.top > r2.bottom) return false;
         if (r1.right < r2.left) return false;
         if (r1.bottom < r2.top) return false;
-        Log.d("collision", "Collision !!");
+
         return true;
     }
 
@@ -26,7 +26,6 @@ public class CollisionHelper {
         if (r1.top > r2.bottom) return false;
         if (r1.right < r2.left) return false;
         if (r1.bottom < r2.top) return false;
-        Log.d("collision", "Collision !!");
         return true;
     }
 }

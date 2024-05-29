@@ -26,8 +26,15 @@ public class EnemyGenerator implements IGameObject {
     private void generate() {
         Scene scene = Scene.top();
         if (scene == null) return;
+        float WorldSizeX = GameWorld.CELLSIZE*(float)GameWorld.MAPSIZEX/2;
 
-        scene.add(MainScene.Layer.enemy, new Enemy(random.nextInt(50),random.nextInt(50)));
+        float WorldSizeY = GameWorld.CELLSIZE*(float)GameWorld.MAPSIZEY/2;
+
+        //Log.d("월드 정보" , "X :"+ WorldSizeX + "Y  :"+WorldSizeY +"랜덤수 "+(float)kotlin.random.Random.Default.nextDouble(-WorldSizeX, WorldSizeX));
+       scene.add(MainScene.Layer.enemy, new Enemy((float)kotlin.random.Random.Default.nextDouble(-WorldSizeX, WorldSizeX),
+               (float) kotlin.random.Random.Default.nextDouble(-WorldSizeY, WorldSizeY)));
+
+        //scene.add(MainScene.Layer.enemy, new Enemy(0, 0));
     }
 
     @Override

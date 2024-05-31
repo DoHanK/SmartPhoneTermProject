@@ -1,5 +1,8 @@
 package com.example.inversus.app;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
@@ -12,10 +15,10 @@ public class InversusActivity extends GameActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         Metrics.setGameSize(18,9);
-
         super.onCreate(savedInstanceState);
-
         new MainScene().push();
+
+
     }
 
 }

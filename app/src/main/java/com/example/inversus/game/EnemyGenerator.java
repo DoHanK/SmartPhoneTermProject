@@ -10,7 +10,7 @@ import com.example.inversus.framework.scene.Scene;
 
 public class EnemyGenerator implements IGameObject {
     private static final String TAG = EnemyGenerator.class.getSimpleName();
-    public static final float GEN_INTERVAL = 1.0f;
+    public static final float GEN_INTERVAL = 0.1f;
     private final Random random = new Random();
     private float enemyTime = 0;
     private int wave;

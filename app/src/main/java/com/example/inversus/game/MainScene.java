@@ -1,9 +1,13 @@
 package com.example.inversus.game;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
+import android.content.Intent;
 import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.inversus.R;
+import com.example.inversus.app.InversusActivity;
 import com.example.inversus.framework.objects.Button;
 import com.example.inversus.framework.objects.JoyStick;
 import com.example.inversus.framework.objects.VertScrollBackground;
@@ -21,6 +25,7 @@ public class MainScene extends Scene {
     private  final Camera camera;
 
     Button AttackBtn = new Button(R.mipmap.aim, 16.0f, 7.0f, 2.0f, 2.0f,null);
+    Button PausedScene = new Button(R.mipmap.exit,16.f , 1.f , 2.0f, 2.0f,null);
     Score score; // package private
     private final JoyStick joyStick;
     public enum Layer {
@@ -66,6 +71,7 @@ public class MainScene extends Scene {
 
 
         add(Layer.touch, AttackBtn);
+        add(Layer.touch, PausedScene);
     }
 
     public void addScore(int amount) {
@@ -74,26 +80,51 @@ public class MainScene extends Scene {
 
     @Override
     public void update(float elapsedSeconds) {
+
+
         super.update(elapsedSeconds);
     }
 
     @Override
-
     public boolean onTouch(MotionEvent event) {
-        float[] pts = Metrics.fromScreen(event.getX(),event.getY());
-        if(pts[0]<8.f) {
 
-            joyStick.onTouch(event);
-        }
 
-        if(pts[0]>8.0f){
+            float[] pts = Metrics.fromScreen(event.getX(), event.getY());
+            if (pts[0] < 8.f) {
 
-            if(AttackBtn.onTouchEvent(event)){
-                this.player.ShootBullet();
+                joyStick.onTouch(event);
             }
-        }
+
+            if (pts[0] > 8.0f) {
+
+                if (AttackBtn.onTouchEvent(event)) {
+                    this.player.ShootBullet();
+                }
+
+                if (PausedScene.onTouchEvent(event)) {
+                    new PausedScene().push();
+                }
+
+            }
 
 
+            return true;
+
+    }
+
+
+    @Override
+    public  String getTAG() {
+        return TAG;
+    }
+
+    @Override
+    protected int getTouchLayerIndex() {
+        return com.example.inversus.game.PausedScene.Layer.touch.ordinal();
+    }
+
+    @Override
+    public boolean isTransparent() {
         return true;
     }
 }

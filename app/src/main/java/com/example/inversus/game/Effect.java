@@ -17,11 +17,11 @@ import kotlin.random.Random;
 
 public class Effect implements IGameObject, IRecyclable {
 
-    private static final int PARTICLECOUNT = 10; //파티클 갯수
+    private static final int PARTICLECOUNT = 3; //파티클 갯수
     private static final float PARTICLESIZE= 1.0f; //파티클 사이즈
-    private static final float PARTICLESPEED= 2.0f; //파티클 사이즈
+    private static final float PARTICLESPEED= 1.0f; //파티클 사이즈
 
-    private static final float PARTICLEGENRANGE= 2.5f;
+    private static final float PARTICLEGENRANGE= 1.8f;
     private static final float PARTICLEGLASTTIME= 1.0f;
     float x , y ;
     float[] elapsedTime = new float[PARTICLECOUNT];
@@ -39,65 +39,48 @@ public class Effect implements IGameObject, IRecyclable {
         time = 0;
         for(int i = 0 ; i < PARTICLECOUNT ; ++i){
 
-            elapsedTime[i] = (float)Random.Default.nextDouble(-PARTICLEGENRANGE,PARTICLEGENRANGE);
+            elapsedTime[i] = PARTICLESIZE+(float)Random.Default.nextDouble(0,PARTICLESIZE/2);
             ParticleColor[i] = new Paint();
 
-            int pre,cur ;
-            pre = Random.Default.nextInt(0,50);
-            cur = Random.Default.nextInt(0,50);
-            Shader shader = new LinearGradient(0, 0, 0, 1.0f,
-                    Color.argb( Random.Default.nextInt(100,200),pre,
-                            0, 0),
-                    Color.argb( Random.Default.nextInt(100,200), cur,
-                            0, 0)
-                    , Shader.TileMode.CLAMP);
-            ParticleColor[i].setShader(shader);
+            ParticleColor[i].setColor(Color.argb(255,10,10,10));
 
-
-            ParticleX[i]+=x+ Random.Default.nextDouble(-PARTICLEGENRANGE,PARTICLEGENRANGE);
-            ParticleY[i]+=y+ Random.Default.nextDouble(-PARTICLEGENRANGE,PARTICLEGENRANGE);
+            ParticleX[i] = x+(float) Random.Default.nextDouble(-PARTICLEGENRANGE,PARTICLEGENRANGE);
+            ParticleY[i] = y+(float) Random.Default.nextDouble(-PARTICLEGENRANGE,PARTICLEGENRANGE);
             ParticleRect[i] =new RectF();
         }
 
     }
 
-    public static Effect get(float x, float y ){
+    public static Effect get(float px, float py ){
         Effect effect = (Effect) RecycleBin.get(Effect.class);
         if (effect != null) {
-            effect.x = x;
-            effect.y = y;
-            effect.time = 0;
+            effect.x = px;
+            effect.y = py;
+            effect.time = 0.0f;
 
             for(int i = 0 ; i < PARTICLECOUNT ; ++i){
 
-                effect.elapsedTime[i] = (float)Random.Default.nextDouble(-PARTICLEGENRANGE,PARTICLEGENRANGE);
-                effect.ParticleColor[i] = new Paint();
+                effect.elapsedTime[i] = 1.0f + (float)Random.Default.nextDouble(0,1.0f/2.0f);
+               effect.ParticleColor[i] = new Paint();
 
-                int pre,cur ;
-                pre = Random.Default.nextInt(0,50);
-                cur = Random.Default.nextInt(0,50);
-                Shader shader = new LinearGradient(0, 0, 0, 1.0f,
-                        Color.argb( Random.Default.nextInt(250,255),pre,
-                                pre, pre),
-                        Color.argb( Random.Default.nextInt(250,255), cur,
-                                cur, cur)
-                        , Shader.TileMode.CLAMP);
-                effect.ParticleColor[i].setShader(shader);
-
-                effect.ParticleX[i]+=x+ Random.Default.nextDouble(-PARTICLEGENRANGE,PARTICLEGENRANGE);
-                effect.ParticleY[i]+=y+ Random.Default.nextDouble(-PARTICLEGENRANGE,PARTICLEGENRANGE);
-                effect.ParticleRect[i] =new RectF();
+                effect.ParticleColor[i].setColor(Color.argb(255,255,10,10));
+                effect.ParticleX[i] = effect.x +(float)Random.Default.nextDouble(-PARTICLEGENRANGE,PARTICLEGENRANGE);
+                effect.ParticleY[i] = effect.y  =+(float)Random.Default.nextDouble(-PARTICLEGENRANGE,PARTICLEGENRANGE);
+                effect.ParticleRect[i] = new RectF();
             }
+
+            return effect;
         }
 
-        return new Effect(x, y);
+        return new Effect(px, py);
     }
 
 
     @Override
     public void update(float elapsedSeconds) {
-        time+=elapsedSeconds;
-        for(int i = 0 ; i < PARTICLECOUNT ; ++i)  elapsedTime[i] += elapsedSeconds*PARTICLESPEED;
+        time +=elapsedSeconds;
+
+        for(int i = 0 ; i < PARTICLECOUNT ; ++i)  elapsedTime[i] -= elapsedSeconds * PARTICLESPEED;
         UpdateRect();
 
 
@@ -121,6 +104,8 @@ public class Effect implements IGameObject, IRecyclable {
 
             ParticleRect[i].top =  ParticleY[i] -PARTICLESIZE*elapsedTime[i]-Camera.Camera_y ;
             ParticleRect[i].bottom =  ParticleY[i] +PARTICLESIZE*elapsedTime[i]-Camera.Camera_y ;
+
+
         }
 
 

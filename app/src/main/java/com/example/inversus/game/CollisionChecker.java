@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import com.example.inversus.R;
 import com.example.inversus.framework.interfaces.IGameObject;
 import com.example.inversus.framework.objects.toastingImage;
+import com.example.inversus.framework.res.Sound;
 import com.example.inversus.framework.scene.Scene;
 import com.example.inversus.framework.util.CollisionHelper;
 import com.example.inversus.framework.view.Metrics;
@@ -98,6 +99,7 @@ public class CollisionChecker implements IGameObject {
             }
         }
         if (Crush) {
+            Sound.playEffect(R.raw.bomb);
             Camera.Camera_x += Random.Default.nextDouble(-3.0f, +3.0f);
             Camera.Camera_y += Random.Default.nextDouble(-3.0f, +3.0f);
         }
@@ -162,6 +164,7 @@ public class CollisionChecker implements IGameObject {
                             (enemy.y - enemy2.y) * (enemy.y - enemy2.y);
                     if (dis < 25) {
                         removeList.add(enemy2);
+
                         Effect effect = Effect.get(enemy2.x, enemy2.y);
                         Scene.top().add(MainScene.Layer.effect, effect);
                     }
@@ -179,12 +182,15 @@ public class CollisionChecker implements IGameObject {
         }
 
         if(Bcrush){
-
+            Camera.Camera_x += Random.Default.nextDouble(-3.0f, +3.0f);
+            Camera.Camera_y += Random.Default.nextDouble(-3.0f, +3.0f);
             toastingImage TI = toastingImage.get(R.mipmap.redfade, Metrics.width / 2 ,Metrics.height / 2 ,18.00f, 9.f,1.0f);
             Scene.top().add(MainScene.Layer.screeneffect, TI);
             Player.HP -=1;
+            Sound.playEffect(R.raw.playertouch);
             if(Player.HP<1){
                 new EndScene().push();
+                Sound.playEffect(R.raw.fail);
                 EndScene.score.setScore(scene.score.score);
                 }
         }

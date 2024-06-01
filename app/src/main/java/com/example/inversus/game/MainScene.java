@@ -15,6 +15,7 @@ import com.example.inversus.framework.objects.Sprite;
 import com.example.inversus.framework.objects.VertScrollBackground;
 import com.example.inversus.framework.objects.Score;
 import com.example.inversus.framework.objects.toastingImage;
+import com.example.inversus.framework.res.Sound;
 import com.example.inversus.framework.scene.Scene;
 import com.example.inversus.framework.view.Metrics;
 import com.example.inversus.game.Camera;
@@ -37,7 +38,6 @@ public class MainScene extends Scene {
     }
     public MainScene() {
         initLayers(Layer.COUNT);
-
 
 
         //인터페이스 영역//
@@ -104,9 +104,12 @@ public class MainScene extends Scene {
 
                 if (AttackBtn.onTouchEvent(event)) {
                     this.player.ShootBullet();
+                    Sound.playEffect(R.raw.shoot);
+
                 }
 
                 if (PausedScene.onTouchEvent(event)) {
+                   Sound.playEffect(R.raw.select);
                     new PausedScene().push();
                 }
 
@@ -116,8 +119,24 @@ public class MainScene extends Scene {
             return true;
 
     }
+    @Override
+    protected void onStart() {
 
+        Sound.playMusic(R.raw.main1);
+    }
 
+    @Override
+    protected void onPause() {
+        Sound.pauseMusic();
+    }
+    @Override
+    protected void onEnd() {
+        Sound.stopMusic();
+    }
+    @Override
+    protected void onResume() {
+        Sound.resumeMusic();
+    }
     @Override
     public  String getTAG() {
         return TAG;

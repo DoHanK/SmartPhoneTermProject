@@ -9,6 +9,7 @@ import com.example.inversus.framework.activity.GameActivity;
 import com.example.inversus.framework.objects.Button;
 import com.example.inversus.framework.objects.Score;
 import com.example.inversus.framework.objects.Sprite;
+import com.example.inversus.framework.res.Sound;
 import com.example.inversus.framework.scene.Scene;
 import com.example.inversus.framework.view.Metrics;
 
@@ -69,11 +70,13 @@ public class EndScene extends Scene {
 
 
         if (ResumeBtn.onTouchEvent(event)) {
+            Sound.playEffect(R.raw.select);
             pop();
 
             Scene.change(new MainScene());
         }
         if (ExitBtn.onTouchEvent(event)) {
+            Sound.playEffect(R.raw.select);
             new AlertDialog.Builder(GameActivity.activity)
                     .setTitle("Confirm")
                     .setMessage("Do you really want to exit the game?")
@@ -81,6 +84,7 @@ public class EndScene extends Scene {
                     .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
+                            Sound.playEffect(R.raw.select);
                             finishActivity();
                         }
                     })

@@ -9,6 +9,7 @@ import com.example.inversus.R;
 import com.example.inversus.framework.activity.GameActivity;
 import com.example.inversus.framework.objects.Button;
 import com.example.inversus.framework.objects.Sprite;
+import com.example.inversus.framework.res.Sound;
 import com.example.inversus.framework.scene.Scene;
 import com.example.inversus.framework.view.Metrics;
 
@@ -50,6 +51,7 @@ public class PausedScene extends Scene {
 
     @Override
     protected int getTouchLayerIndex() {
+
         return Layer.touch.ordinal();
     }
 
@@ -64,9 +66,11 @@ public class PausedScene extends Scene {
 
 
             if (ResumeBtn.onTouchEvent(event)) {
+                Sound.playEffect(R.raw.select);
                 pop();
             }
             if (ExitBtn.onTouchEvent(event)) {
+                Sound.playEffect(R.raw.select);
                 new AlertDialog.Builder(GameActivity.activity)
                         .setTitle("Confirm")
                         .setMessage("Do you really want to exit the game?")
@@ -74,6 +78,7 @@ public class PausedScene extends Scene {
                         .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                Sound.playEffect(R.raw.select);
                                 finishActivity();
                             }
                         })

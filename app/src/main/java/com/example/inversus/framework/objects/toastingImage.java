@@ -1,9 +1,12 @@
 package com.example.inversus.framework.objects;
 
+import static androidx.core.math.MathUtils.clamp;
+
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorSpace;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -43,7 +46,6 @@ public class toastingImage extends Sprite implements IRecyclable {
     }
 
     public static toastingImage get(int bitmapResId, float cx, float cy, float width, float height ,float SetTime){
-        Log.d("Paint"," 시작  ");
         toastingImage TI = (toastingImage) RecycleBin.get(toastingImage.class);
         if (TI != null) {
 
@@ -65,10 +67,17 @@ public class toastingImage extends Sprite implements IRecyclable {
     @Override
     public void update(float elapsedSeconds) {
         ElapsedTime+=elapsedSeconds;
+        float alpha =255.f - 255.f*( ElapsedTime/SettingTime);
+        int ialpha= (int)alpha;
+        if(ialpha%2==0) {
+            paint.setColor(Color.argb(ialpha
+                    , 255
+                    , 255
+                    , 255));
+        }
 
-        paint.setColor(Color.argb(255.f - 255.f*( ElapsedTime/SettingTime),0,0,0));
 
-        Log.d("Paint","  "+255.f*( ElapsedTime/SettingTime));
+
         if(ElapsedTime >SettingTime) {
 
             Scene scene = MainScene.top();
@@ -80,8 +89,6 @@ public class toastingImage extends Sprite implements IRecyclable {
 
     @Override
     public void draw(Canvas canvas) {
-
-
-        canvas.drawBitmap(bitmap, null, dstRect, paint);
+        canvas.drawBitmap(bitmap, null , dstRect, paint);
     }
 }

@@ -178,8 +178,8 @@ public class CollisionChecker implements IGameObject {
         if(Bcrush){
 
             toastingImage TI = toastingImage.get(R.mipmap.redfade, Metrics.width / 2 ,Metrics.height / 2 ,18.00f, 9.f,1.0f);
-            Scene.top().  add(MainScene.Layer.screeneffect, TI);
-
+            Scene.top().add(MainScene.Layer.screeneffect, TI);
+            Player.HP -=1;
         }
 
        for(  Enemy L:  removeList){

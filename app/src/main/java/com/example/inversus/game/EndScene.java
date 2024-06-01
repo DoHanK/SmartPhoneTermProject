@@ -2,7 +2,6 @@ package com.example.inversus.game;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.BitmapFactory;
 import android.view.MotionEvent;
 
 import com.example.inversus.R;
@@ -11,6 +10,10 @@ import com.example.inversus.framework.objects.Button;
 import com.example.inversus.framework.objects.Sprite;
 import com.example.inversus.framework.scene.Scene;
 import com.example.inversus.framework.view.Metrics;
+
+public class EndScene {
+}
+
 
 public class PausedScene extends Scene {
     private static final String TAG = PausedScene.class.getSimpleName();
@@ -63,26 +66,26 @@ public class PausedScene extends Scene {
 
 
 
-            if (ResumeBtn.onTouchEvent(event)) {
-                pop();
-            }
-            if (ExitBtn.onTouchEvent(event)) {
-                new AlertDialog.Builder(GameActivity.activity)
-                        .setTitle("Confirm")
-                        .setMessage("Do you really want to exit the game?")
-                        .setNegativeButton("No", null)
-                        .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                finishActivity();
-                            }
-                        })
-                        .create()
-                        .show();
-                return false;
-            }
+        if (ResumeBtn.onTouchEvent(event)) {
+            pop();
+        }
+        if (ExitBtn.onTouchEvent(event)) {
+            new AlertDialog.Builder(GameActivity.activity)
+                    .setTitle("Confirm")
+                    .setMessage("Do you really want to exit the game?")
+                    .setNegativeButton("No", null)
+                    .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            finishActivity();
+                        }
+                    })
+                    .create()
+                    .show();
+            return false;
+        }
 
-            return true;
+        return true;
 
 
     }

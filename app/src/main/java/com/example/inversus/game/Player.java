@@ -9,6 +9,7 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.provider.Contacts;
 import android.util.Log;
 
 import com.example.inversus.framework.interfaces.IBoxCollidable;
@@ -21,7 +22,6 @@ import com.example.inversus.framework.view.Metrics;
 public class Player implements IGameObject , IBoxCollidable {
 
     private static final float SPEED = 8.0f;
-
     private static final float PLAYERSIZE = 0.8f;
     private static final int BULLETCOUNT = 6;
     private static final float BULLETOFFSET = 0.5f;
@@ -31,6 +31,22 @@ public class Player implements IGameObject , IBoxCollidable {
     private static final float TRAILERCOOLTIME = 0.001f;
     private static final float TRAILERSIZE = 0.92f;
     private static final int SHADOWCOUNT = 20;
+
+
+    // ph UI
+    private static final float PLAYERHPSIZE= 0.6f;
+    private static final float HPBULLETSIZE = 0.10f;
+    private static final float HPBULLETOFFSET = 0.3f;
+    private static final float HPXOFFSET= 1.65f;
+
+
+    private static final int PLAYERHP = 3;
+    RectF[] HPDrawRect= new RectF[PLAYERHP];
+    float HPstratX = 10.f;
+    float HPstratY = 0.8f;
+    float[] HPbulletPosX = new float[BULLETCOUNT*PLAYERHP];
+    float[] HPbulletPosY = new float[BULLETCOUNT*PLAYERHP];
+    RectF[] HPdrawRBullet = new RectF[BULLETCOUNT*PLAYERHP];
 
     public static RectF collisionRect = new RectF();
     private final JoyStick joyStick;
@@ -56,8 +72,9 @@ public class Player implements IGameObject , IBoxCollidable {
     float prex =0;
     float prey =0;
 
+    static int HP = 3;
     Player(JoyStick joyStick){
-
+        HP =3;
         this.joyStick = joyStick;
 
         PlayerBodyColor = new Paint();
@@ -68,15 +85,32 @@ public class Player implements IGameObject , IBoxCollidable {
         BulletColor[1].setColor(Color.WHITE);
 
      DrawRect = new RectF();
+        //UIHP Init
+        for(int i = 0  ; i  <PLAYERHP ; ++i) {
+            HPDrawRect[i] = new RectF();
+        }
+
+        for(int i = 0 ; i < BULLETCOUNT*PLAYERHP ;++i){
+            HPbulletPosX[i] = HPBULLETOFFSET * (float)(Math.cos(toRadians(360.f/BULLETCOUNT)*i + 10.f*(float)(i/BULLETCOUNT)));
+            HPbulletPosY[i] = HPBULLETOFFSET * (float)(Math.sin(toRadians(360.f/BULLETCOUNT)*i + 10.f*(float)(i/BULLETCOUNT)));
+
+
+            HPdrawRBullet[i] = new RectF();
+        }
+
      x  = 0 ;
      y = 0;
+
         UpdateRect();
+
      for(int i = 0 ; i < BULLETCOUNT ;++i){
 
          bulletPosX[i] = BULLETOFFSET * (float)(Math.cos(toRadians(360.f/BULLETCOUNT)*i));
          bulletPosY[i] = BULLETOFFSET * (float)(Math.sin(toRadians(360.f/BULLETCOUNT)*i));
          drawRBullet[i] = new RectF();
      }
+
+
      for(int i = 0; i <SHADOWCOUNT ; i++){
 
          DrawShadowRect[i] = new RectF();
@@ -177,6 +211,24 @@ public class Player implements IGameObject , IBoxCollidable {
             drawRBullet[i].right  = bulletPosX[i]+ BULLETSIZE+x -Camera.Camera_x;
             drawRBullet[i].bottom = bulletPosY[i]- BULLETSIZE+y -Camera.Camera_y;
         }
+
+
+        //HP UI
+        for(int i = 0 ; i < BULLETCOUNT*PLAYERHP ;++i){
+            float X = HPbulletPosX[i];
+            float Y = HPbulletPosY[i];
+            HPbulletPosX[i] =  X * (float)Math.cos(elapsedSeconds) - Y * (float)Math.sin(elapsedSeconds);
+            HPbulletPosY[i] = X * (float)Math.sin(elapsedSeconds) + Y * (float)Math.cos(elapsedSeconds);
+
+            HPdrawRBullet[i].left  = HPbulletPosX[i]- HPBULLETSIZE +HPstratX+HPXOFFSET*(i/BULLETCOUNT) ;
+            HPdrawRBullet[i].top  = HPbulletPosY[i]+ HPBULLETSIZE +HPstratY;
+            HPdrawRBullet[i].right  = HPbulletPosX[i]+ HPBULLETSIZE +HPstratX+HPXOFFSET*(i/BULLETCOUNT);
+            HPdrawRBullet[i].bottom = HPbulletPosY[i]- HPBULLETSIZE+HPstratY;
+
+
+        }
+
+
     }
     public void UpdateRect(){
         //쉐도우 업데이트
@@ -204,7 +256,14 @@ public class Player implements IGameObject , IBoxCollidable {
         }
 
 
+        //HP 본체 드로우
 
+        for(int i  = 0 ; i < PLAYERHP ; ++i) {
+            HPDrawRect[i].top = HPstratY - PLAYERHPSIZE;
+            HPDrawRect[i].bottom = HPstratY + PLAYERHPSIZE;
+            HPDrawRect[i].left = HPstratX - PLAYERHPSIZE+HPXOFFSET*i;
+            HPDrawRect[i].right = HPstratX + PLAYERHPSIZE+HPXOFFSET*i;
+        }
         DrawRect.top = y - PLAYERSIZE -Camera.Camera_y;
         DrawRect.bottom =  y + PLAYERSIZE - Camera.Camera_y;
         DrawRect.left = x - PLAYERSIZE -Camera.Camera_x;
@@ -225,7 +284,9 @@ public class Player implements IGameObject , IBoxCollidable {
         }
     canvas.drawRoundRect(DrawRect,0.3f,0.3f,PlayerBodyColor);
 
-
+        for(int i = 0 ; i <HP ; ++i) {
+            canvas.drawRoundRect(HPDrawRect[i], 0.2f, 0.2f, PlayerBodyColor);
+        }
 
 
         for(int i = 0 ; i < BULLETCOUNT ;++i){
@@ -236,6 +297,13 @@ public class Player implements IGameObject , IBoxCollidable {
                 canvas.drawOval(drawRBullet[i], BulletColor[1]);
 
             }
+        }
+
+
+        for(int i = 0 ; i < BULLETCOUNT*HP ;++i){
+            canvas.drawOval(HPdrawRBullet[i], BulletColor[0]);
+
+
         }
 
     }

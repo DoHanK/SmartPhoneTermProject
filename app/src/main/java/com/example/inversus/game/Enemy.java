@@ -20,10 +20,10 @@ import com.example.inversus.framework.view.Metrics;
 public class Enemy  implements IBoxCollidable, IRecyclable, IGameObject {
     private static final float SPEED = 5.0f;
     private static final float PLAYERSIZE = 0.8f;
-    private static final float BOUNDYSIZE = 3.5f;
+    private static final float BOUNDYSIZE = 2.5f;
     private static final float RESPONETIME = 0.5f;
 
-    private static final int    RESPONECOUNT = 10;
+    private static final int    RESPONECOUNT = 1;
     private static final float FRAMEWIDTH = 6.0f;
     float x ,y , dx ,dy;
     protected RectF EnemyRect = new RectF();
@@ -56,7 +56,7 @@ public class Enemy  implements IBoxCollidable, IRecyclable, IGameObject {
         BodyColor.setShader(shader);
 
         BoundyColor = new Paint();
-        BoundyColor.setColor(Color.argb(10,0,255,0));
+        BoundyColor.setColor(Color.argb(50,255,0,0));
 
         ResponeColor = new Paint();
         ResponeColor.setColor(Color.argb(255,255,0,0));

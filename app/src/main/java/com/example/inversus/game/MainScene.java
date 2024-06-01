@@ -5,13 +5,16 @@ import static androidx.core.content.ContextCompat.startActivity;
 import android.content.Intent;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
 import com.example.inversus.R;
 import com.example.inversus.app.InversusActivity;
 import com.example.inversus.framework.objects.Button;
 import com.example.inversus.framework.objects.JoyStick;
+import com.example.inversus.framework.objects.Sprite;
 import com.example.inversus.framework.objects.VertScrollBackground;
 import com.example.inversus.framework.objects.Score;
+import com.example.inversus.framework.objects.toastingImage;
 import com.example.inversus.framework.scene.Scene;
 import com.example.inversus.framework.view.Metrics;
 import com.example.inversus.game.Camera;
@@ -21,15 +24,16 @@ public class MainScene extends Scene {
     private static final String TAG = MainScene.class.getSimpleName();
     private final Player player;
     private final GameWorld gameWord;
-
+    float cx = Metrics.width/ 2, cy = Metrics.height / 2;
     private  final Camera camera;
+
 
     Button AttackBtn = new Button(R.mipmap.aim, 16.0f, 7.0f, 2.0f, 2.0f,null);
     Button PausedScene = new Button(R.mipmap.exit,16.f , 1.f , 2.0f, 2.0f,null);
     Score score; // package private
     private final JoyStick joyStick;
     public enum Layer {
-        bg, enemy, bullet, player,effect, ui,touch, controller, COUNT
+        bg, enemy, bullet, player,effect, screeneffect ,ui,touch, controller, COUNT
     }
     public MainScene() {
         initLayers(Layer.COUNT);
@@ -49,6 +53,7 @@ public class MainScene extends Scene {
 
         this.camera = new Camera(this.player);
         add(Layer.controller,camera);
+
 
 
 

@@ -39,7 +39,7 @@ public class Effect implements IGameObject, IRecyclable {
         time = 0;
         for(int i = 0 ; i < PARTICLECOUNT ; ++i){
 
-            elapsedTime[i] = PARTICLESIZE+(float)Random.Default.nextDouble(0,PARTICLESIZE/2);
+            elapsedTime[i] = PARTICLESIZE;
             ParticleColor[i] = new Paint();
 
             ParticleColor[i].setColor(Color.argb(255,10,10,10));
@@ -60,12 +60,12 @@ public class Effect implements IGameObject, IRecyclable {
 
             for(int i = 0 ; i < PARTICLECOUNT ; ++i){
 
-                effect.elapsedTime[i] = 1.0f + (float)Random.Default.nextDouble(0,1.0f/2.0f);
+                effect.elapsedTime[i] = PARTICLESIZE;
                effect.ParticleColor[i] = new Paint();
 
-                effect.ParticleColor[i].setColor(Color.argb(255,255,10,10));
+                effect.ParticleColor[i].setColor(Color.argb(255,10,10,10));
                 effect.ParticleX[i] = effect.x +(float)Random.Default.nextDouble(-PARTICLEGENRANGE,PARTICLEGENRANGE);
-                effect.ParticleY[i] = effect.y  =+(float)Random.Default.nextDouble(-PARTICLEGENRANGE,PARTICLEGENRANGE);
+                effect.ParticleY[i] = effect.y +(float)Random.Default.nextDouble(-PARTICLEGENRANGE,PARTICLEGENRANGE);
                 effect.ParticleRect[i] = new RectF();
             }
 

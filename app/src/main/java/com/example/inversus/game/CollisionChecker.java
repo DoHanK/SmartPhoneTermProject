@@ -4,9 +4,12 @@ import android.graphics.Canvas;
 
 import java.util.ArrayList;
 
+import com.example.inversus.R;
 import com.example.inversus.framework.interfaces.IGameObject;
+import com.example.inversus.framework.objects.toastingImage;
 import com.example.inversus.framework.scene.Scene;
 import com.example.inversus.framework.util.CollisionHelper;
+import com.example.inversus.framework.view.Metrics;
 
 import kotlin.random.Random;
 
@@ -119,6 +122,7 @@ public class CollisionChecker implements IGameObject {
 
         }
 
+        boolean Bcrush =false;
         ArrayList<Enemy> removeList = new ArrayList<>();
         //적과 플레이어의 충돌 처리
         enemies = scene.objectsAt(MainScene.Layer.enemy);
@@ -128,6 +132,7 @@ public class CollisionChecker implements IGameObject {
 
             if (CollisionHelper.collides(Player.collisionRect, enemy.collisionRect)) {
 
+                Bcrush =true;
 
                 for (int i = 0; i < cell.MAPSIZEX * cell.MAPSIZEY; ++i) {
 
@@ -168,6 +173,13 @@ public class CollisionChecker implements IGameObject {
 
 
             }
+        }
+
+        if(Bcrush){
+
+            toastingImage TI = toastingImage.get(R.mipmap.redfade, Metrics.width / 2 ,Metrics.height / 2 ,18.00f, 9.f,1.0f);
+            Scene.top().  add(MainScene.Layer.screeneffect, TI);
+
         }
 
        for(  Enemy L:  removeList){

@@ -2,6 +2,7 @@ package com.example.inversus.game;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.BitmapFactory;
 import android.view.MotionEvent;
 
 import com.example.inversus.R;
@@ -22,12 +23,14 @@ public class PausedScene extends Scene {
 
     private float angle;
     public PausedScene() {
+
+
         initLayers(Layer.COUNT);
         float w = Metrics.width, h = Metrics.height;
         float cx = w / 2, cy = h / 2;
 
-        add(Layer.bg, new Sprite(R.mipmap.graybg, 0, 0, 40.00f, 18.f));
-        add(Layer.bg, new Sprite(R.mipmap.logo, cx, cy, 12.00f, 6.75f));
+        add(Layer.bg, new Sprite(R.mipmap.graybg, cx, cy, 19.00f, 10.f));
+        add(Layer.bg, new Sprite(R.mipmap.logo, cx, cy-1, 12.00f, 6.75f));
 
 
         ResumeBtn =new Button(R.mipmap.restart, 8.f, 7.0f, 2.0f, 2.0f, null);

@@ -7,32 +7,31 @@ import android.view.MotionEvent;
 import com.example.inversus.R;
 import com.example.inversus.framework.activity.GameActivity;
 import com.example.inversus.framework.objects.Button;
+import com.example.inversus.framework.objects.Score;
 import com.example.inversus.framework.objects.Sprite;
 import com.example.inversus.framework.scene.Scene;
 import com.example.inversus.framework.view.Metrics;
 
-public class EndScene {
-}
 
 
-public class PausedScene extends Scene {
+public class EndScene extends Scene {
     private static final String TAG = PausedScene.class.getSimpleName();
     public enum Layer {
-        bg, title, touch, COUNT
+        bg, title, UI,touch, COUNT
     }
 
     Button ResumeBtn;
     Button ExitBtn;
-
+    static Score score;
     private float angle;
-    public PausedScene() {
+    public EndScene() {
 
 
         initLayers(Layer.COUNT);
         float w = Metrics.width, h = Metrics.height;
         float cx = w / 2, cy = h / 2;
 
-        add(Layer.bg, new Sprite(R.mipmap.graybg, cx, cy, 19.00f, 10.f));
+        add(Layer.bg, new Sprite(R.mipmap.redfade, cx, cy, 19.00f, 10.f));
         add(Layer.bg, new Sprite(R.mipmap.logo, cx, cy-1, 12.00f, 6.75f));
 
 
@@ -41,8 +40,11 @@ public class PausedScene extends Scene {
         ExitBtn = new Button(R.mipmap.exit, 11.f , 7.0f , 2.5f, 2.5f, null);
 
 
-        add(PausedScene.Layer.touch, ExitBtn);
-        add(PausedScene.Layer.touch, ResumeBtn);
+       this.score = new Score(R.mipmap.number_24x32, 8.5f, 0.5f, 0.6f);
+        add(EndScene.Layer.UI, score);
+
+        add(EndScene.Layer.touch, ExitBtn);
+        add(EndScene.Layer.touch, ResumeBtn);
     }
 
     @Override
@@ -68,6 +70,8 @@ public class PausedScene extends Scene {
 
         if (ResumeBtn.onTouchEvent(event)) {
             pop();
+
+            Scene.change(new MainScene());
         }
         if (ExitBtn.onTouchEvent(event)) {
             new AlertDialog.Builder(GameActivity.activity)

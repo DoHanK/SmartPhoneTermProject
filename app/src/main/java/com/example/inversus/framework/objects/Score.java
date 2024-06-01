@@ -14,7 +14,10 @@ public class Score implements IGameObject {
     private final Rect srcRect = new Rect();
     private final RectF dstRect = new RectF();
     private final int srcCharWidth, srcCharHeight;
-    private int score, displayScore;
+    public int score;
+    int displayScore;
+
+     static int pregamescore;
 
     public Score(int mipmapId, float right, float top, float width) {
         this.bitmap = BitmapPool.get(mipmapId);

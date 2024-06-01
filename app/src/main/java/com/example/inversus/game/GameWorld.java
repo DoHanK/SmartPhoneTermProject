@@ -30,7 +30,7 @@ public class  GameWorld implements IGameObject {
     GameWorld(){
 
         for(int i = 0; i <MAPSIZEX *MAPSIZEY ; ++i){
-
+            MAPInfo[i] =  MapState.pass.ordinal();
 
             CellCenterX[i] = -(MAPSIZEX/2) *CELLSIZE + (i % MAPSIZEX) *CELLSIZE +HALFCELLSIZE;
             CellCenterY[i] =-(MAPSIZEY/2) *CELLSIZE + (i / MAPSIZEX) *CELLSIZE +HALFCELLSIZE;
@@ -39,6 +39,7 @@ public class  GameWorld implements IGameObject {
             collisionRect[i].right = CellCenterX[i] + HALFCELLSIZE-Camera.Camera_x;;
             collisionRect[i].top = CellCenterY[i] - HALFCELLSIZE-Camera.Camera_y;;
             collisionRect[i].bottom = CellCenterY[i] + HALFCELLSIZE-Camera.Camera_y;;
+
 
 
             if(Random.Default.nextInt(0,20) == 0 ) {

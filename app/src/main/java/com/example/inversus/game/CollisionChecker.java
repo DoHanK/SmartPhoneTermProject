@@ -1,5 +1,7 @@
 package com.example.inversus.game;
 
+import static com.google.android.material.color.utilities.Score.score;
+
 import android.graphics.Canvas;
 
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ import com.example.inversus.framework.objects.toastingImage;
 import com.example.inversus.framework.scene.Scene;
 import com.example.inversus.framework.util.CollisionHelper;
 import com.example.inversus.framework.view.Metrics;
+import com.google.android.material.color.utilities.Score;
 
 import kotlin.random.Random;
 
@@ -180,6 +183,10 @@ public class CollisionChecker implements IGameObject {
             toastingImage TI = toastingImage.get(R.mipmap.redfade, Metrics.width / 2 ,Metrics.height / 2 ,18.00f, 9.f,1.0f);
             Scene.top().add(MainScene.Layer.screeneffect, TI);
             Player.HP -=1;
+            if(Player.HP<1){
+                new EndScene().push();
+                EndScene.score.setScore(scene.score.score);
+                }
         }
 
        for(  Enemy L:  removeList){

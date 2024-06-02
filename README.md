@@ -103,11 +103,11 @@ Make With Android Studio
 
 >> 어려웠던 부분: 카메라 구현 부분, 익숙치 않은 언어, 익숙하지 않은 플랫폼개발에서의 개발
 
+
+
 >**최종주차 진행상황**
 >> 변경 사항
 >>> 적 한명당 score 50점  -> 1점으로 변경 , ~~1초 이내에 사살시 콤보 점수 부여~~
-
-
 
 >>인게임 캡쳐본
 >>>  플레이 이동했을 때
@@ -131,7 +131,7 @@ Make With Android Studio
 >> 주당 커밋수
 >>> 5주차 , 9번
 >>>>![커밋5주](https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/0e9ca329-91f7-4ff4-a8c2-6643196852a3)
->>> 6,7주차 , 0번
+>> 6,7주차 , 0번
 >>>>
 >>> 8주차 , 2번
 >>>> ![커밋8주](https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/2d801218-dc3d-4a02-a305-09bddcd0500c)

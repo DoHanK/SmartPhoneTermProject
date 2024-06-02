@@ -73,7 +73,22 @@ Make With Android Studio
 >>>><img width="263" alt="게임화면" src="https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/24715f80-923c-411f-9bda-4fb98dd4747d">
 
 >최종발표 진행상황
->> 
 
-### **7.
+>>  플레이 이동했을 때
+>>>![이동 및 체력 감소](https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/59bdfbb1-dd8c-4d69-83f9-5a7015d9ce49)
+
+>>  플레이 피격당했을 때
+>>>![Player타격시](https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/a1b153e2-381b-4ebc-98ba-768b406b9b3c)
+
+>> 적 공격했을 때
+>>>![타격시화면](https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/1d71e92a-f045-434b-abad-e3895cf9b769)
+
+>> 일시정지 화면
+>>>![Paused화면](https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/c4feaecc-9e45-400b-a4d6-d3e9f9862374)
+
+>> 게임 오버 화면
+>>>![종료화면](https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/c8cba378-2fa1-4bcc-83b3-18d3d880f46d)
+
+>> 나가기버튼눌렀을때 메세지창
+>>>![나가기버튼 눌렀을때](https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/7a5a1e08-793f-4bf8-be31-5f05fd2ad54e)
 

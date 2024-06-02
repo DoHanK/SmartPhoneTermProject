@@ -73,7 +73,11 @@ Make With Android Studio
 
 >> 게임 오브젝트 설명
 >>> Camera -> Update(): 플레이어의 위치를 선형 보간하여 점차 따라감 , Draw():x
+>>>
+>>> 
 >>> JoyStick -> Update(): x ,Draw() : 조이스틱을 그려줌 , OnTouch() :터치해서 움직였을 때 움직인 방향을 계산해서 각도로 가지고 있음
+>>>
+>>> 
 >>> Bullet , Player, GameWorld -> Update(): 각자 dx, dy의 위치를 계산함,  Draw(): 원하는 도형을 그림
 
 >>로비화면 구현

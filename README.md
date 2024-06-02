@@ -65,14 +65,39 @@ Make With Android Studio
 
 ### **6.현재 진행상황**
 ---
->5주차 진행상황
+>중간주차 진행상황
+>> 변경 사항
+>>> _총알 개수_ 8-> 6개로 변경 , 사유: 미적인 이유로 수
+>>> _총알 발사 쿨타임_ 0.1(s) -> 0.2(s) 로 변경
+>>> _총알 리젠쿨탐 추가_ 1(s)
+
+>> 게임 오브젝트 설명
+>>> Camera -> Update(): 플레이어의 위치를 선형 보간하여 점차 따라감 , Draw():x
+>>> JoyStick -> Update(): x ,Draw() : 조이스틱을 그려줌 , OnTouch() :터치해서 움직였을 때 움직인 방향을 계산해서 각도로 가지고 있음
+>>> Bullet , Player, GameWorld -> Update(): 각자 dx, dy의 위치를 계산함,  Draw(): 원하는 도형을 그림
+
 >>로비화면 구현
 >>><img width="253" alt="로비화면" src="https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/09f8b6de-8120-4d01-867c-5171b5d88895">
 >>플레이 화면
 >>> 종횡스크롤 이동, 플레이어 이동 시 잔상, 총알 발사, 맵 바운드 예외처리
 >>>><img width="263" alt="게임화면" src="https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/24715f80-923c-411f-9bda-4fb98dd4747d">
 
->최종발표 진행상황
+>> 주당 커밋수
+>>> 2주차 , 1 커밋
+>>>> ![커밋2주](https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/c9a939b8-7d10-4e61-86c0-63c10ff3893e)
+
+>>> 3주차 , 8커밋
+>>>> ![커밋3주](https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/125a9107-ec30-4365-85e1-09d7f9854ac4)
+
+>>> 4주차, 8커밋
+>>>>![커밋4주](https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/728de3ad-df1a-48e1-aa3b-68efb70fb415)
+
+>> 어려웠던 부분: 카메라 구현 부분, 익숙치 않은 언어, 익숙하지 않은 플랫폼개발에서의 개발
+
+
+
+
+>최종주차 진행상황
 
 >>  플레이 이동했을 때
 >>>![이동 및 체력 감소](https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/59bdfbb1-dd8c-4d69-83f9-5a7015d9ce49)

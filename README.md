@@ -135,7 +135,7 @@ Make With Android Studio
 >>> 5주차 , 9번
 >>>>![커밋5주](https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/0e9ca329-91f7-4ff4-a8c2-6643196852a3)
 >>> 6,7주차 , 0번
->>>
+>>>>
 >>> 8주차 , 2번
 >>>> ![커밋8주](https://github.com/DoHanK/SmartPhoneTermProject/assets/94627795/2d801218-dc3d-4a02-a305-09bddcd0500c)
 >>> 9주차 , 7번

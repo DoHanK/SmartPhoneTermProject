@@ -30,13 +30,13 @@ public class PausedScene extends Scene {
         float w = Metrics.width, h = Metrics.height;
         float cx = w / 2, cy = h / 2;
 
-        add(Layer.bg, new Sprite(R.mipmap.graybg, cx, cy, 19.00f, 10.f));
-        add(Layer.bg, new Sprite(R.mipmap.logo, cx, cy-1, 12.00f, 6.75f));
+        add(Layer.bg, new Sprite(R.mipmap.graybg, cx, cy, 40.0f, 20.0f));
+        add(Layer.bg, new Sprite(R.mipmap.logo, cx, cy-3, 20.0f, 10.0f));
 
 
-        ResumeBtn =new Button(R.mipmap.restart, 7.f, 7.0f, 2.0f, 2.0f, null);
+        ResumeBtn =new Button(R.mipmap.restart, 17.f, 13.f, 3.0f, 3.0f, null);
 
-        ExitBtn = new Button(R.mipmap.exit, 11.f , 7.0f , 2.5f, 2.5f, null);
+        ExitBtn = new Button(R.mipmap.exit, 22.f , 13.f , 3.5f, 3.5f, null);
 
 
         add(PausedScene.Layer.touch, ExitBtn);

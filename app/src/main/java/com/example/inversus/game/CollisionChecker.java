@@ -184,7 +184,7 @@ public class CollisionChecker implements IGameObject {
         if(Bcrush){
             Camera.Camera_x += Random.Default.nextDouble(-3.0f, +3.0f);
             Camera.Camera_y += Random.Default.nextDouble(-3.0f, +3.0f);
-            toastingImage TI = toastingImage.get(R.mipmap.redfade, Metrics.width / 2 ,Metrics.height / 2 ,18.00f, 9.f,1.0f);
+            toastingImage TI = toastingImage.get(R.mipmap.redfade, Metrics.width / 2 ,Metrics.height / 2 ,40.00f, 20.f,1.0f);
             Scene.top().add(MainScene.Layer.screeneffect, TI);
             Player.HP -=1;
             Sound.playEffect(R.raw.playertouch);

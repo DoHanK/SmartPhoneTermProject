@@ -28,20 +28,25 @@ public class  GameWorld implements IGameObject {
     static public float[] CellCenterY  = new float[MAPSIZEX*MAPSIZEY];
     static RectF[] collisionRect = new RectF[MAPSIZEX*MAPSIZEY];
     GameWorld(){
-
+        Log.d("재생성", "게임월드 재생성입니다.");
         for(int i = 0; i <MAPSIZEX *MAPSIZEY ; ++i){
+
             MAPInfo[i] =  MapState.pass.ordinal();
 
             CellCenterX[i] = -(MAPSIZEX/2) *CELLSIZE + (i % MAPSIZEX) *CELLSIZE +HALFCELLSIZE;
             CellCenterY[i] =-(MAPSIZEY/2) *CELLSIZE + (i / MAPSIZEX) *CELLSIZE +HALFCELLSIZE;
             collisionRect[i] = new RectF();
-            collisionRect[i].left = CellCenterX[i] -HALFCELLSIZE -Camera.Camera_x;
-            collisionRect[i].right = CellCenterX[i] + HALFCELLSIZE-Camera.Camera_x;;
-            collisionRect[i].top = CellCenterY[i] - HALFCELLSIZE-Camera.Camera_y;;
-            collisionRect[i].bottom = CellCenterY[i] + HALFCELLSIZE-Camera.Camera_y;;
+            collisionRect[i].left = CellCenterX[i] -HALFCELLSIZE ;
+            collisionRect[i].right = CellCenterX[i] + HALFCELLSIZE;;
+            collisionRect[i].top = CellCenterY[i] - HALFCELLSIZE;;
+            collisionRect[i].bottom = CellCenterY[i] + HALFCELLSIZE;;
 
+            if(CellCenterX[i] >= -2 && CellCenterX[i] <= 2
+                    && CellCenterY[i] >= -2 && CellCenterY[i] <= 2 ) {
+                Log.d("재생성", "보호구역입니다..");
+                continue;
 
-
+            }
             if(Random.Default.nextInt(0,20) == 0 ) {
                 if (!CollisionHelper.collides(collisionRect[i], Player.collisionRect))
                     MAPInfo[i] = MapState.staticwall.ordinal();
@@ -77,7 +82,6 @@ public class  GameWorld implements IGameObject {
 
     @Override
     public void draw(Canvas canvas) {
-        //Log.d("플레이어 위치" , "x "+Player.x+"y"+Player.y);
 
         for(int i = 0; i <MAPSIZEX*MAPSIZEY ; ++i){
             RectF Draw = new RectF();

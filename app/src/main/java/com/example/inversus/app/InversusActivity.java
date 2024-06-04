@@ -14,7 +14,7 @@ public class InversusActivity extends GameActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Metrics.setGameSize(18,9);
+        Metrics.setGameSize(40,20);
         super.onCreate(savedInstanceState);
         new MainScene().push();
 

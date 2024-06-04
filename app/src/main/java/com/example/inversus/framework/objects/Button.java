@@ -29,6 +29,16 @@ public class Button extends Sprite implements ITouchable {
 
         return true;
     }
+
+    public boolean onTouchEvent(float pts[]) {
+
+        if (!dstRect.contains(pts[0], pts[1])) {
+            return false;
+        }
+
+
+        return true;
+    }
 }
 
 

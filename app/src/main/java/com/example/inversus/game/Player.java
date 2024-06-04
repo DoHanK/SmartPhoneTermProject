@@ -34,16 +34,16 @@ public class Player implements IGameObject , IBoxCollidable {
 
 
     // ph UI
-    private static final float PLAYERHPSIZE= 0.6f;
-    private static final float HPBULLETSIZE = 0.10f;
-    private static final float HPBULLETOFFSET = 0.3f;
-    private static final float HPXOFFSET= 1.65f;
+    private static final float PLAYERHPSIZE= 1.3f;
+    private static final float HPBULLETSIZE = 0.25f;
+    private static final float HPBULLETOFFSET = 0.75f;
+    private static final float HPXOFFSET= 3.65f;
 
 
     private static final int PLAYERHP = 3;
     RectF[] HPDrawRect= new RectF[PLAYERHP];
-    float HPstratX = 10.f;
-    float HPstratY = 0.8f;
+    float HPstratX = 15.f;
+    float HPstratY = 1.6f;
     float[] HPbulletPosX = new float[BULLETCOUNT*PLAYERHP];
     float[] HPbulletPosY = new float[BULLETCOUNT*PLAYERHP];
     RectF[] HPdrawRBullet = new RectF[BULLETCOUNT*PLAYERHP];
@@ -98,7 +98,7 @@ public class Player implements IGameObject , IBoxCollidable {
             HPdrawRBullet[i] = new RectF();
         }
 
-     x  = 0 ;
+     x = 0;
      y = 0;
 
         UpdateRect();
@@ -285,7 +285,7 @@ public class Player implements IGameObject , IBoxCollidable {
     canvas.drawRoundRect(DrawRect,0.3f,0.3f,PlayerBodyColor);
 
         for(int i = 0 ; i <HP ; ++i) {
-            canvas.drawRoundRect(HPDrawRect[i], 0.2f, 0.2f, PlayerBodyColor);
+            canvas.drawRoundRect(HPDrawRect[i], 0.4f, 0.4f, PlayerBodyColor);
         }
 
 

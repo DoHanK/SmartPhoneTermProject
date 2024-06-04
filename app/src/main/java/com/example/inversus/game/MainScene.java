@@ -29,8 +29,8 @@ public class MainScene extends Scene {
     private  final Camera camera;
 
 
-    Button AttackBtn = new Button(R.mipmap.aim, 16.0f, 7.0f, 2.0f, 2.0f,null);
-    Button PausedScene = new Button(R.mipmap.exit,16.f , 1.f , 2.0f, 2.0f,null);
+    Button AttackBtn = new Button(R.mipmap.aim, 36.0f, 16.0f, 3.0f, 3.0f,null);
+    Button PausedScene = new Button(R.mipmap.exit,36.f , 2.f , 3.0f, 3.0f,null);
     Score score; // package private
     private final JoyStick joyStick;
     public enum Layer {
@@ -43,7 +43,7 @@ public class MainScene extends Scene {
         //인터페이스 영역//
         //컨트롤
         this.joyStick = new JoyStick(R.mipmap.joystick_bg, R.mipmap.joystick_thumb);
-        joyStick.setRects(1.5f, 1.5f, 1.0f, 0.5f, 1.0f);
+        joyStick.setRects(1.5f, 1.5f, 2.0f, 1.0f, 1.0f);
         add(Layer.controller, joyStick);
 
 
@@ -70,7 +70,7 @@ public class MainScene extends Scene {
 
 
 
-        this.score = new Score(R.mipmap.number_24x32, 8.5f, 0.5f, 0.6f);
+        this.score = new Score(R.mipmap.number_24x32, 5.0f, 0.5f, 1.6f);
         score.setScore(0);
         add(Layer.ui, score);
 
@@ -94,30 +94,28 @@ public class MainScene extends Scene {
     public boolean onTouch(MotionEvent event) {
 
 
-            float[] pts = Metrics.fromScreen(event.getX(), event.getY());
-            if (pts[0] < 8.f) {
 
-                joyStick.onTouch(event);
+
+        for (int i = 0; i < event.getPointerCount(); i++) {
+            int pointerId = event.getPointerId(i);
+
+            float x = event.getX(i);
+            float y = event.getY(i);
+            float[] pts = Metrics.fromScreen(x, y);
+
+            // Process the touch event for joystick and buttons
+            joyStick.onTouch(event);
+
+            if (AttackBtn.onTouchEvent(pts)) {
+                this.player.ShootBullet();
+                Sound.playEffect(R.raw.shoot);
+            } else if (PausedScene.onTouchEvent(pts)) {
+                Sound.playEffect(R.raw.select);
+                new PausedScene().push();
             }
+        }
 
-            if (pts[0] > 8.0f) {
-
-                if (AttackBtn.onTouchEvent(event)) {
-                    this.player.ShootBullet();
-                    Sound.playEffect(R.raw.shoot);
-
-                }
-
-                if (PausedScene.onTouchEvent(event)) {
-                   Sound.playEffect(R.raw.select);
-                    new PausedScene().push();
-                }
-
-            }
-
-
-            return true;
-
+        return true;
     }
     @Override
     protected void onStart() {
